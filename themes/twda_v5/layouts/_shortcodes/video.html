@@ -1,0 +1,53 @@
+{{/*
+Video Shortcode - Responsive video player
+Usage: {{< video src="video.mp4" poster="poster.jpg" >}}
+*/}}
+
+{{- $src := .Get "src" -}}
+{{- $poster := .Get "poster" -}}
+{{- $title := .Get "title" -}}
+{{- $autoplay := .Get "autoplay" | default false -}}
+{{- $loop := .Get "loop" | default false -}}
+{{- $muted := .Get "muted" | default false -}}
+{{- $controls := .Get "controls" | default true -}}
+{{- $class := .Get "class" | default "" -}}
+
+{{- if not $src -}}
+  {{- errorf "Video shortcode: src parameter is required" -}}
+{{- end -}}
+
+<div class="video-container my-6 {{ $class }}">
+  <div class="aspect-video bg-base-300 rounded-lg overflow-hidden shadow-lg">
+    <video class="w-full h-full object-cover"
+           {{- if $poster }} poster="{{ $poster }}"{{ end }}
+           {{- if $autoplay }} autoplay{{ end }}
+           {{- if $loop }} loop{{ end }}
+           {{- if $muted }} muted{{ end }}
+           {{- if $controls }} controls{{ end }}
+           {{- if $title }} title="{{ $title }}"{{ end }}
+           preload="metadata">
+      
+      {{- if strings.HasSuffix $src ".mp4" -}}
+        <source src="{{ $src }}" type="video/mp4">
+      {{- else if strings.HasSuffix $src ".webm" -}}
+        <source src="{{ $src }}" type="video/webm">
+      {{- else if strings.HasSuffix $src ".ogg" -}}
+        <source src="{{ $src }}" type="video/ogg">
+      {{- else -}}
+        <source src="{{ $src }}" type="video/mp4">
+      {{- end -}}
+      
+      <p class="text-center text-base-content/70 p-4">
+        {{- if site.Language.Lang | eq "zh-tw" -}}
+          您的瀏覽器不支援 video 標籤。
+        {{- else -}}
+          Your browser does not support the video tag.
+        {{- end -}}
+      </p>
+    </video>
+  </div>
+  
+  {{- if $title -}}
+    <div class="text-center text-sm text-base-content/70 mt-2">{{ $title }}</div>
+  {{- end -}}
+</div>

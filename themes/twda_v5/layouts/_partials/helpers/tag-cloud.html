@@ -1,0 +1,47 @@
+{{/*
+Tag Cloud Generator
+Usage: {{ partial "_partials/helpers/tag-cloud.html" . }}
+*/}}
+
+{{- $tags := site.Taxonomies.tags -}}
+{{- if $tags -}}
+  {{- $maxCount := 0 -}}
+  {{- range $tags -}}
+    {{- if gt .Count $maxCount -}}
+      {{- $maxCount = .Count -}}
+    {{- end -}}
+  {{- end -}}
+  
+  <div class="tag-cloud">
+    <h3 class="text-lg font-semibold mb-4">
+      {{- if site.Language.Lang | eq "zh-tw" -}}
+        熱門標籤
+      {{- else -}}
+        Popular Tags
+      {{- end -}}
+    </h3>
+    
+    <div class="flex flex-wrap gap-2">
+      {{- range $tags.ByCount -}}
+        {{- $weight := div .Count $maxCount -}}
+        {{- $size := "badge-sm" -}}
+        {{- if gt $weight 0.8 -}}
+          {{- $size = "badge-lg" -}}
+        {{- else if gt $weight 0.5 -}}
+          {{- $size = "badge-md" -}}
+        {{- else if gt $weight 0.3 -}}
+          {{- $size = "badge-sm" -}}
+        {{- else -}}
+          {{- $size = "badge-xs" -}}
+        {{- end -}}
+        
+        <a href="{{ .Page.RelPermalink }}" 
+           class="badge badge-outline {{ $size }} hover:badge-primary transition-colors"
+           title="{{ .Count }} posts">
+          {{ .Page.Title }}
+          <span class="badge badge-sm ml-1">{{ .Count }}</span>
+        </a>
+      {{- end -}}
+    </div>
+  </div>
+{{- end -}}

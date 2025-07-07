@@ -1,0 +1,59 @@
+{{/*
+Modal Component - DaisyUI v5 Compatible
+Usage: {{ partial "_partials/components/modal.html" (dict "id" "my-modal" "title" "Modal Title" "content" "Modal content here" "size" "lg" "backdrop" true) }}
+*/}}
+
+{{- $id := .id | default (printf "modal-%d" (now.UnixMilli)) -}}
+{{- $title := .title | default "" -}}
+{{- $content := .content | default "" -}}
+{{- $size := .size | default "md" -}}
+{{- $backdrop := .backdrop | default true -}}
+{{- $class := .class | default "" -}}
+
+{{- $modalClasses := slice "modal" -}}
+{{- if $class -}}
+  {{- $modalClasses = $modalClasses | append $class -}}
+{{- end -}}
+
+{{- $boxClasses := slice "modal-box" -}}
+{{- if eq $size "xs" -}}
+  {{- $boxClasses = $boxClasses | append "w-32" -}}
+{{- else if eq $size "sm" -}}
+  {{- $boxClasses = $boxClasses | append "w-64" -}}
+{{- else if eq $size "lg" -}}
+  {{- $boxClasses = $boxClasses | append "w-11/12 max-w-4xl" -}}
+{{- else if eq $size "xl" -}}
+  {{- $boxClasses = $boxClasses | append "w-11/12 max-w-6xl" -}}
+{{- else -}}
+  {{- $boxClasses = $boxClasses | append "w-11/12 max-w-2xl" -}}
+{{- end -}}
+
+<!-- Modal Toggle Button -->
+<button class="btn btn-primary" onclick="document.getElementById('{{ $id }}').showModal()">
+  Open Modal
+</button>
+
+<!-- Modal Dialog -->
+<dialog id="{{ $id }}" class="{{ delimit $modalClasses " " }}" role="dialog" aria-labelledby="{{ $id }}-title" aria-modal="true">
+  <div class="{{ delimit $boxClasses " " }}">
+    {{- if $title -}}
+      <h2 id="{{ $id }}-title" class="text-2xl font-bold mb-4">{{ $title }}</h2>
+    {{- end -}}
+    
+    <div class="modal-content">
+      {{ $content | safeHTML }}
+    </div>
+    
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn" type="submit" aria-label="Close modal">Close</button>
+      </form>
+    </div>
+  </div>
+  
+  {{- if $backdrop -}}
+  <form method="dialog" class="modal-backdrop">
+    <button type="submit" aria-label="Close modal">Close</button>
+  </form>
+  {{- end -}}
+</dialog>

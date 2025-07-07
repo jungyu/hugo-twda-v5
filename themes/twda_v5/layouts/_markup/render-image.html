@@ -1,0 +1,44 @@
+{{/*
+Image Render Hook - Optimized and Responsive
+Hugo will use this template to render images in Markdown content
+*/}}
+
+{{- $src := .Destination -}}
+{{- $alt := .Text -}}
+{{- $title := .Title -}}
+
+{{- $resource := .Page.Resources.GetMatch $src -}}
+{{- if $resource -}}
+  {{- $small := $resource.Resize "480x webp" -}}
+  {{- $medium := $resource.Resize "768x webp" -}}
+  {{- $large := $resource.Resize "1024x webp" -}}
+  {{- $fallback := $resource.Resize "1024x" -}}
+  
+  <figure class="image-container my-6">
+    <picture>
+      <source media="(max-width: 480px)" srcset="{{ $small.RelPermalink }}" type="image/webp">
+      <source media="(max-width: 768px)" srcset="{{ $medium.RelPermalink }}" type="image/webp">
+      <source media="(min-width: 769px)" srcset="{{ $large.RelPermalink }}" type="image/webp">
+      <img src="{{ $fallback.RelPermalink }}" 
+           alt="{{ $alt }}" 
+           {{- if $title }} title="{{ $title }}"{{ end }}
+           loading="lazy"
+           class="w-full h-auto rounded-lg shadow-lg">
+    </picture>
+    {{- if $title -}}
+      <figcaption class="text-center text-sm text-base-content/70 mt-2">{{ $title }}</figcaption>
+    {{- end -}}
+  </figure>
+{{- else -}}
+  {{- /* Handle external images or fallback */}}
+  <figure class="image-container my-6">
+    <img src="{{ $src | safeURL }}" 
+         alt="{{ $alt }}" 
+         {{- if $title }} title="{{ $title }}"{{ end }}
+         loading="lazy"
+         class="w-full h-auto rounded-lg shadow-lg">
+    {{- if $title -}}
+      <figcaption class="text-center text-sm text-base-content/70 mt-2">{{ $title }}</figcaption>
+    {{- end -}}
+  </figure>
+{{- end -}}

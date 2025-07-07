@@ -1,0 +1,209 @@
+[readMore]
+other = "Read More"
+
+[readingTime]
+other = "Reading Time"
+
+[publishedOn]
+other = "Published on"
+
+[lastModified]
+other = "Last Modified"
+
+[tags]
+other = "Tags"
+
+[categories]
+other = "Categories"
+
+[series]
+other = "Series"
+
+[nextPost]
+other = "Next Post"
+
+[prevPost]
+other = "Previous Post"
+
+[searchPlaceholder]
+other = "Search..."
+
+[noResults]
+other = "No results found"
+
+[shareThis]
+other = "Share this article"
+
+[tableOfContents]
+other = "Table of Contents"
+
+[popularTags]
+other = "Popular Tags"
+
+[allPosts]
+other = "All Posts"
+
+[recentPosts]
+other = "Recent Posts"
+
+[relatedPosts]
+other = "Related Posts"
+
+[home]
+other = "Home"
+
+[about]
+other = "About"
+
+[contact]
+other = "Contact"
+
+[blog]
+other = "Blog"
+
+[archive]
+other = "Archive"
+
+[theme]
+other = "Theme"
+
+[lightTheme]
+other = "Light Theme"
+
+[darkTheme]
+other = "Dark Theme"
+
+[language]
+other = "Language"
+
+[menu]
+other = "Menu"
+
+[close]
+other = "Close"
+
+[open]
+other = "Open"
+
+[loading]
+other = "Loading..."
+
+[error]
+other = "Error"
+
+[notFound]
+other = "Page Not Found"
+
+[backToHome]
+other = "Back to Home"
+
+[minutes]
+other = "minutes"
+
+[lessThanMinute]
+other = "Less than 1 minute"
+
+[minuteRead]
+other = "min read"
+
+[words]
+other = "words"
+
+[author]
+other = "Author"
+
+[date]
+other = "Date"
+
+[updated]
+other = "Updated"
+
+[posted]
+other = "Posted"
+
+[in]
+other = "in"
+
+[on]
+other = "on"
+
+[by]
+other = "by"
+
+[edit]
+other = "Edit"
+
+[editPage]
+other = "Edit this page"
+
+[viewSource]
+other = "View Source"
+
+[suggestChanges]
+other = "Suggest Changes"
+
+[subscribe]
+other = "Subscribe"
+
+[rss]
+other = "RSS"
+
+[email]
+other = "Email"
+
+[follow]
+other = "Follow"
+
+[followUs]
+other = "Follow Us"
+
+[socialMedia]
+other = "Social Media"
+
+[copyright]
+other = "Copyright"
+
+[allRightsReserved]
+other = "All Rights Reserved"
+
+[poweredBy]
+other = "Powered by"
+
+[builtWith]
+other = "Built with"
+
+[and]
+other = "and"
+
+[with]
+other = "with"
+
+[createdWith]
+other = "Created with"
+
+[madeWith]
+other = "Made with"
+
+[love]
+other = "❤️"
+
+[coffee]
+other = "☕"
+
+[music]
+other = "🎵"
+
+[code]
+other = "💻"
+
+[design]
+other = "🎨"
+
+[inspiration]
+other = "💡"
+
+[teamwork]
+other = "👥"
+
+[passion]
+other = "🔥"

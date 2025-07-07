@@ -1,0 +1,209 @@
+[readMore]
+other = "閱讀更多"
+
+[readingTime]
+other = "閱讀時間"
+
+[publishedOn]
+other = "發佈於"
+
+[lastModified]
+other = "最後修改"
+
+[tags]
+other = "標籤"
+
+[categories]
+other = "分類"
+
+[series]
+other = "系列"
+
+[nextPost]
+other = "下一篇"
+
+[prevPost]
+other = "上一篇"
+
+[searchPlaceholder]
+other = "搜索..."
+
+[noResults]
+other = "沒有找到結果"
+
+[shareThis]
+other = "分享這篇文章"
+
+[tableOfContents]
+other = "目錄"
+
+[popularTags]
+other = "熱門標籤"
+
+[allPosts]
+other = "所有文章"
+
+[recentPosts]
+other = "最新文章"
+
+[relatedPosts]
+other = "相關文章"
+
+[home]
+other = "首頁"
+
+[about]
+other = "關於"
+
+[contact]
+other = "聯絡"
+
+[blog]
+other = "部落格"
+
+[archive]
+other = "文章歸檔"
+
+[theme]
+other = "主題"
+
+[lightTheme]
+other = "淺色主題"
+
+[darkTheme]
+other = "深色主題"
+
+[language]
+other = "語言"
+
+[menu]
+other = "選單"
+
+[close]
+other = "關閉"
+
+[open]
+other = "開啟"
+
+[loading]
+other = "載入中..."
+
+[error]
+other = "錯誤"
+
+[notFound]
+other = "找不到頁面"
+
+[backToHome]
+other = "回到首頁"
+
+[minutes]
+other = "分鐘"
+
+[lessThanMinute]
+other = "不到 1 分鐘"
+
+[minuteRead]
+other = "分鐘閱讀"
+
+[words]
+other = "字"
+
+[author]
+other = "作者"
+
+[date]
+other = "日期"
+
+[updated]
+other = "更新"
+
+[posted]
+other = "發佈"
+
+[in]
+other = "在"
+
+[on]
+other = "於"
+
+[by]
+other = "由"
+
+[edit]
+other = "編輯"
+
+[editPage]
+other = "編輯此頁"
+
+[viewSource]
+other = "查看原始碼"
+
+[suggestChanges]
+other = "建議修改"
+
+[subscribe]
+other = "訂閱"
+
+[rss]
+other = "RSS"
+
+[email]
+other = "電子郵件"
+
+[follow]
+other = "追蹤"
+
+[followUs]
+other = "追蹤我們"
+
+[socialMedia]
+other = "社群媒體"
+
+[copyright]
+other = "版權所有"
+
+[allRightsReserved]
+other = "保留所有權利"
+
+[poweredBy]
+other = "技術支援"
+
+[builtWith]
+other = "建構於"
+
+[and]
+other = "和"
+
+[with]
+other = "使用"
+
+[createdWith]
+other = "創建於"
+
+[madeWith]
+other = "製作使用"
+
+[love]
+other = "❤️"
+
+[coffee]
+other = "☕"
+
+[music]
+other = "🎵"
+
+[code]
+other = "💻"
+
+[design]
+other = "🎨"
+
+[inspiration]
+other = "💡"
+
+[teamwork]
+other = "👥"
+
+[passion]
+other = "🔥"

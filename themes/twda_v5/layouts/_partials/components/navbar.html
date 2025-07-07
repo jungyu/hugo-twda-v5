@@ -1,0 +1,84 @@
+{{/*
+Navbar Component - DaisyUI v5 Compatible
+Usage: {{ partial "_partials/components/navbar.html" (dict "brand" "Site Name" "items" site.Menus.main "theme_switcher" true "search" true) }}
+*/}}
+
+{{- $brand := .brand | default site.Title -}}
+{{- $items := .items | default site.Menus.main -}}
+{{- $theme_switcher := .theme_switcher | default true -}}
+{{- $search := .search | default true -}}
+{{- $class := .class | default "" -}}
+
+{{- $navClasses := slice "navbar" "bg-base-100" "shadow-lg" -}}
+{{- if $class -}}
+  {{- $navClasses = $navClasses | append $class -}}
+{{- end -}}
+
+<nav class="{{ delimit $navClasses " " }}" role="navigation" aria-label="Main navigation">
+  <div class="navbar-start">
+    <!-- Mobile Menu Toggle -->
+    <div class="dropdown lg:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost" aria-label="Toggle mobile menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </div>
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        {{- range $items -}}
+          <li>
+            <a href="{{ .URL }}" 
+               class="block px-4 py-2 hover:bg-base-200 rounded"
+               {{- if .Pre }} title="{{ .Pre }}"{{ end -}}>
+              {{ .Name }}
+            </a>
+          </li>
+        {{- end -}}
+      </ul>
+    </div>
+    
+    <!-- Brand -->
+    <a href="{{ site.BaseURL }}" class="btn btn-ghost text-xl font-bold">
+      {{ $brand }}
+    </a>
+  </div>
+  
+  <!-- Desktop Menu -->
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      {{- range $items -}}
+        <li>
+          <a href="{{ .URL }}" 
+             class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
+             {{- if .Pre }} title="{{ .Pre }}"{{ end -}}>
+            {{ .Name }}
+          </a>
+        </li>
+      {{- end -}}
+    </ul>
+  </div>
+  
+  <div class="navbar-end">
+    <!-- Search -->
+    {{- if $search -}}
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle" aria-label="Search">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+        <div tabindex="0" class="dropdown-content z-[1] card card-compact w-64 p-2 shadow bg-base-100">
+          <div class="card-body">
+            <div class="form-control">
+              <input type="text" placeholder="Search..." class="input input-bordered w-full" />
+            </div>
+          </div>
+        </div>
+      </div>
+    {{- end -}}
+    
+    <!-- Theme Switcher -->
+    {{- if $theme_switcher -}}
+      {{ partial "_partials/theme-switcher-dropdown.html" . }}
+    {{- end -}}
+  </div>
+</nav>

@@ -1,34 +1,11 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="index, follow">
+<!-- SEO Meta Tags -->
+{{- partial "_partials/seo/meta-tags.html" . -}}
 
-<!-- 標題和描述 -->
-<title>
-    {{- if .IsHome -}}
-        {{ site.Title }}{{ with site.Params.subtitle }} - {{ . }}{{ end }}
-    {{- else -}}
-        {{ .Title }} - {{ site.Title }}
-    {{- end -}}
-</title>
+<!-- Open Graph & Twitter Cards -->
+{{- partial "_partials/seo/open-graph.html" . -}}
 
-<meta name="description" content="
-    {{- if .Description -}}
-        {{ .Description }}
-    {{- else if .Summary -}}
-        {{ .Summary | truncate 155 }}
-    {{- else if .IsPage -}}
-        {{ .Summary | default .Content | truncate 155 | plainify }}
-    {{- else -}}
-        {{ site.Params.description | default site.Title }}
-    {{- end -}}
-">
-
-<!-- 作者資訊 -->
-{{- if .Params.author -}}
-<meta name="author" content="{{ .Params.author }}">
-{{- else if site.Params.author -}}
-<meta name="author" content="{{ site.Params.author }}">
-{{- end -}}
+<!-- Structured Data -->
+{{- partial "_partials/seo/structured-data.html" . -}}
 
 <!-- Canonical URL -->
 <link rel="canonical" href="{{ .Permalink }}">

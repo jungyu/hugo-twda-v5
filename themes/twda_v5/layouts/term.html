@@ -1,0 +1,133 @@
+{{- define "main" -}}
+<div class="container mx-auto max-w-6xl">
+    <!-- 術語標題 -->
+    <header class="mb-12 text-center">
+        <h1 class="text-4xl font-bold mb-4 text-primary">{{ .Title }}</h1>
+        <p class="text-lg text-base-content/80 max-w-2xl mx-auto">
+            {{- if .Content -}}
+            {{ .Content }}
+            {{- else -}}
+            標籤為「{{ .Title }}」的所有文章
+            {{- end -}}
+        </p>
+        
+        <!-- 文章統計 -->
+        <div class="flex justify-center items-center gap-4 mt-6">
+            <div class="badge badge-primary badge-lg">
+                {{ len .Pages }} 篇文章
+            </div>
+            <a href="{{ .Parent.RelPermalink }}" class="btn btn-outline btn-sm">
+                ← 返回所有{{ .Parent.Title }}
+            </a>
+        </div>
+    </header>
+    
+    <!-- 文章列表 -->
+    {{- $paginator := .Paginate .Pages -}}
+    {{- if $paginator.Pages -}}
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {{- range $paginator.Pages -}}
+        <article class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+            {{- if .Params.featured_image -}}
+            <figure>
+                <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="w-full h-48 object-cover">
+            </figure>
+            {{- end -}}
+            
+            <div class="card-body">
+                <h2 class="card-title">
+                    <a href="{{ .RelPermalink }}" class="link link-hover">{{ .Title }}</a>
+                </h2>
+                
+                <!-- 文章 Meta -->
+                <div class="flex flex-wrap items-center gap-2 text-sm text-base-content/70 mb-3">
+                    {{- if .Date -}}
+                    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                        </svg>
+                        {{ .Date.Format "2006/01/02" }}
+                    </time>
+                    {{- end -}}
+                    
+                    {{- if .ReadingTime -}}
+                    <span class="badge badge-ghost badge-sm">{{ .ReadingTime }} 分鐘</span>
+                    {{- end -}}
+                </div>
+                
+                <!-- 摘要 -->
+                {{- if .Summary -}}
+                <p class="text-base-content/80 line-clamp-3">{{ .Summary }}</p>
+                {{- end -}}
+                
+                <!-- 其他標籤 -->
+                {{- if .Params.tags -}}
+                <div class="flex flex-wrap gap-1 mt-3">
+                    {{- range .Params.tags -}}
+                    {{- if ne . $.Title -}}
+                    <a href="{{ "/tags/" | relURL }}{{ . | urlize }}" class="badge badge-outline badge-sm hover:badge-primary">
+                        {{ . }}
+                    </a>
+                    {{- end -}}
+                    {{- end -}}
+                </div>
+                {{- end -}}
+                
+                <div class="card-actions justify-end mt-4">
+                    <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">
+                        閱讀更多
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </article>
+        {{- end -}}
+    </div>
+    
+    <!-- 分頁導航 -->
+    {{- if gt $paginator.TotalPages 1 -}}
+    <nav class="flex justify-center mt-12" aria-label="分頁導航">
+        <div class="join">
+            {{- if $paginator.HasPrev -}}
+            <a href="{{ $paginator.Prev.URL }}" class="join-item btn btn-outline" aria-label="上一頁">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                上一頁
+            </a>
+            {{- end -}}
+            
+            {{- range $paginator.Pagers -}}
+            {{- if eq . $paginator -}}
+            <span class="join-item btn btn-active">{{ .PageNumber }}</span>
+            {{- else -}}
+            <a href="{{ .URL }}" class="join-item btn btn-outline">{{ .PageNumber }}</a>
+            {{- end -}}
+            {{- end -}}
+            
+            {{- if $paginator.HasNext -}}
+            <a href="{{ $paginator.Next.URL }}" class="join-item btn btn-outline" aria-label="下一頁">
+                下一頁
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+            {{- end -}}
+        </div>
+    </nav>
+    {{- end -}}
+    {{- else -}}
+    <!-- 空狀態 -->
+    <div class="text-center py-16">
+        <div class="text-6xl mb-4">📄</div>
+        <h3 class="text-2xl font-bold mb-2">尚無文章</h3>
+        <p class="text-base-content/70">「{{ .Title }}」標籤下還沒有任何文章。</p>
+        <a href="{{ .Site.BaseURL }}" class="btn btn-primary mt-4">
+            返回首頁
+        </a>
+    </div>
+    {{- end -}}
+</div>
+{{- end -}}

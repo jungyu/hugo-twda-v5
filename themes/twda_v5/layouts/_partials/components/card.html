@@ -1,0 +1,108 @@
+{{- $image := .Params.featured_image | default .Params.image -}}
+{{- $title := .Title -}}
+{{- $summary := .Summary | default .Description -}}
+{{- $permalink := .RelPermalink -}}
+{{- $date := .Date -}}
+{{- $readingTime := .ReadingTime -}}
+{{- $tags := .Params.tags -}}
+{{- $author := .Params.author -}}
+
+<div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+    {{- if $image -}}
+    <figure class="relative overflow-hidden">
+        {{- $imageResource := .Page.Resources.GetMatch $image -}}
+        {{- if $imageResource -}}
+        {{- $resized := $imageResource.Resize "400x300" -}}
+        <img src="{{ $resized.RelPermalink }}" 
+             alt="{{ $title }}" 
+             class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+             loading="lazy">
+        {{- else -}}
+        <img src="{{ $image }}" 
+             alt="{{ $title }}" 
+             class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+             loading="lazy">
+        {{- end -}}
+        
+        <!-- 日期標籤 -->
+        {{- if $date -}}
+        <div class="absolute top-4 left-4">
+            <div class="badge badge-primary shadow-lg">
+                {{ $date.Format "01/02" }}
+            </div>
+        </div>
+        {{- end -}}
+    </figure>
+    {{- end -}}
+    
+    <div class="card-body">
+        <!-- 標題 -->
+        <h2 class="card-title text-lg hover:text-primary transition-colors">
+            <a href="{{ $permalink }}" class="link link-hover line-clamp-2">
+                {{ $title }}
+            </a>
+        </h2>
+        
+        <!-- Meta 資訊 -->
+        <div class="flex flex-wrap items-center gap-2 text-sm text-base-content/70 mb-3">
+            {{- if $date -}}
+            <time datetime="{{ $date.Format "2006-01-02T15:04:05Z07:00" }}" class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                </svg>
+                {{ $date.Format "2006/01/02" }}
+            </time>
+            {{- end -}}
+            
+            {{- if $readingTime -}}
+            <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                </svg>
+                {{ $readingTime }} 分鐘
+            </span>
+            {{- end -}}
+            
+            {{- if $author -}}
+            <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                {{ $author }}
+            </span>
+            {{- end -}}
+        </div>
+        
+        <!-- 摘要 -->
+        {{- if $summary -}}
+        <p class="text-base-content/80 line-clamp-3 mb-4">
+            {{ $summary | truncate 120 }}
+        </p>
+        {{- end -}}
+        
+        <!-- 標籤 -->
+        {{- if $tags -}}
+        <div class="flex flex-wrap gap-1 mb-4">
+            {{- range first 3 $tags -}}
+            <a href="{{ "/tags/" | relURL }}{{ . | urlize }}" 
+               class="badge badge-outline badge-sm hover:badge-primary transition-colors">
+                {{ . }}
+            </a>
+            {{- end -}}
+            {{- if gt (len $tags) 3 -}}
+            <span class="badge badge-ghost badge-sm">+{{ sub (len $tags) 3 }}</span>
+            {{- end -}}
+        </div>
+        {{- end -}}
+        
+        <!-- 操作按鈕 -->
+        <div class="card-actions justify-end">
+            <a href="{{ $permalink }}" class="btn btn-primary btn-sm group">
+                閱讀更多
+                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+{{/*
+Gallery Shortcode - Image gallery with lightbox
+Usage: {{< gallery >}}
+![Alt text](image1.jpg "Caption 1")
+![Alt text](image2.jpg "Caption 2")
+{{< /gallery >}}
+*/}}
+
+{{- $images := findRE `!\[([^\]]*)\]\(([^)]+)\s*"?([^"]*)"?\)` .Inner -}}
+{{- $id := .Get "id" | default (printf "gallery-%d" (now.UnixMilli)) -}}
+{{- $columns := .Get "columns" | default "3" -}}
+{{- $class := .Get "class" | default "" -}}
+
+{{- if $images -}}
+<div class="gallery-container my-6">
+  <div class="grid grid-cols-1 md:grid-cols-{{ $columns }} gap-4 {{ $class }}">
+    {{- range $index, $image := $images -}}
+      {{- $altMatch := findRE `!\[([^\]]*)\]` $image -}}
+      {{- $srcMatch := findRE `\(([^)]+)\s*` $image -}}
+      {{- $captionMatch := findRE `"([^"]*)"` $image -}}
+      
+      {{- $alt := "" -}}
+      {{- $src := "" -}}
+      {{- $caption := "" -}}
+      
+      {{- if $altMatch -}}
+        {{- $alt = index $altMatch 0 | replaceRE `!\[([^\]]*)\]` "$1" -}}
+      {{- end -}}
+      
+      {{- if $srcMatch -}}
+        {{- $src = index $srcMatch 0 | replaceRE `\(([^)]+)\s*` "$1" -}}
+      {{- end -}}
+      
+      {{- if $captionMatch -}}
+        {{- $caption = index $captionMatch 0 | strings.Trim "\"" -}}
+      {{- end -}}
+      
+      <div class="gallery-item">
+        <figure class="cursor-pointer" onclick="document.getElementById('gallery_modal_{{ $index }}').showModal()">
+          <img src="{{ $src }}" 
+               alt="{{ $alt }}" 
+               class="w-full h-48 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+               loading="lazy">
+          {{- if $caption -}}
+            <figcaption class="text-center text-sm text-base-content/70 mt-2">{{ $caption }}</figcaption>
+          {{- end -}}
+        </figure>
+        
+        <!-- Modal for full-size image -->
+        <dialog id="gallery_modal_{{ $index }}" class="modal">
+          <div class="modal-box max-w-4xl">
+            <form method="dialog">
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <figure>
+              <img src="{{ $src }}" 
+                   alt="{{ $alt }}" 
+                   class="w-full h-auto rounded-lg">
+              {{- if $caption -}}
+                <figcaption class="text-center text-sm text-base-content/70 mt-2">{{ $caption }}</figcaption>
+              {{- end -}}
+            </figure>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </div>
+    {{- end -}}
+  </div>
+</div>
+{{- end -}}

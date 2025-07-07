@@ -1,0 +1,50 @@
+{{/*
+Button Component - DaisyUI v5 Compatible
+Usage: {{ partial "_partials/components/button.html" (dict "text" "Button Text" "url" "/path" "type" "primary" "size" "md" "icon" "icon-name" "class" "custom-class") }}
+*/}}
+
+{{- $text := .text | default "Button" -}}
+{{- $url := .url -}}
+{{- $type := .type | default "primary" -}}
+{{- $size := .size | default "md" -}}
+{{- $icon := .icon -}}
+{{- $class := .class | default "" -}}
+{{- $disabled := .disabled | default false -}}
+{{- $target := .target | default "" -}}
+{{- $rel := .rel | default "" -}}
+{{- $aria := .aria | default dict -}}
+
+{{- $btnClasses := slice "btn" -}}
+{{- $btnClasses = $btnClasses | append (printf "btn-%s" $type) -}}
+{{- $btnClasses = $btnClasses | append (printf "btn-%s" $size) -}}
+{{- if $class -}}
+  {{- $btnClasses = $btnClasses | append $class -}}
+{{- end -}}
+
+{{- if $url -}}
+  <a href="{{ $url }}"
+     class="{{ delimit $btnClasses " " }}"
+     {{- if $target }} target="{{ $target }}"{{ end }}
+     {{- if $rel }} rel="{{ $rel }}"{{ end }}
+     {{- if $disabled }} aria-disabled="true" tabindex="-1"{{ end }}
+     {{- range $key, $value := $aria }}
+     aria-{{ $key }}="{{ $value }}"
+     {{- end }}>
+    {{- if $icon -}}
+      <i class="{{ $icon }}" aria-hidden="true"></i>
+    {{- end -}}
+    {{ $text }}
+  </a>
+{{- else -}}
+  <button type="button"
+          class="{{ delimit $btnClasses " " }}"
+          {{- if $disabled }} disabled{{ end }}
+          {{- range $key, $value := $aria }}
+          aria-{{ $key }}="{{ $value }}"
+          {{- end }}>
+    {{- if $icon -}}
+      <i class="{{ $icon }}" aria-hidden="true"></i>
+    {{- end -}}
+    {{ $text }}
+  </button>
+{{- end -}}

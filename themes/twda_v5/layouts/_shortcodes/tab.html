@@ -1,0 +1,12 @@
+{{/*
+Tab Shortcode - Used within tabs shortcode
+Usage: {{< tab "Tab Title" >}}Content{{< /tab >}}
+*/}}
+
+{{- $title := .Get 0 | default "Tab" -}}
+{{- $content := .Inner -}}
+
+<!-- This shortcode is handled by the tabs shortcode -->
+<div class="tab-item" data-title="{{ $title }}">
+  {{ $content | markdownify }}
+</div>

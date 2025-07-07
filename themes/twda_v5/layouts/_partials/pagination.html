@@ -1,0 +1,111 @@
+{{- $paginator := .Paginator -}}
+{{- if gt $paginator.TotalPages 1 -}}
+<nav class="flex justify-center" aria-label="分頁導航" role="navigation">
+    <div class="join">
+        <!-- 第一頁按鈕 -->
+        {{- if gt $paginator.PageNumber 2 -}}
+        <a href="{{ $paginator.First.URL }}" 
+           class="join-item btn btn-outline" 
+           aria-label="第一頁"
+           title="第一頁">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+            </svg>
+        </a>
+        {{- end -}}
+        
+        <!-- 上一頁按鈕 -->
+        {{- if $paginator.HasPrev -}}
+        <a href="{{ $paginator.Prev.URL }}" 
+           class="join-item btn btn-outline" 
+           aria-label="上一頁，第{{ $paginator.Prev.PageNumber }}頁"
+           title="上一頁">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            <span class="hidden sm:inline">上一頁</span>
+        </a>
+        {{- end -}}
+        
+        <!-- 頁碼 -->
+        {{- $currentPage := $paginator.PageNumber -}}
+        {{- $totalPages := $paginator.TotalPages -}}
+        {{- $startPage := 1 -}}
+        {{- $endPage := $totalPages -}}
+        
+        <!-- 計算顯示範圍 -->
+        {{- if gt $totalPages 7 -}}
+            {{- if le $currentPage 4 -}}
+                {{- $endPage = 5 -}}
+            {{- else if ge $currentPage (sub $totalPages 3) -}}
+                {{- $startPage = sub $totalPages 4 -}}
+            {{- else -}}
+                {{- $startPage = sub $currentPage 2 -}}
+                {{- $endPage = add $currentPage 2 -}}
+            {{- end -}}
+        {{- end -}}
+        
+        <!-- 顯示開始省略號 -->
+        {{- if gt $startPage 1 -}}
+        <a href="{{ $paginator.First.URL }}" class="join-item btn btn-outline">1</a>
+        {{- if gt $startPage 2 -}}
+        <span class="join-item btn btn-disabled">...</span>
+        {{- end -}}
+        {{- end -}}
+        
+        <!-- 頁碼範圍 -->
+        {{- range seq $startPage $endPage -}}
+        {{- if eq . $currentPage -}}
+        <span class="join-item btn btn-active" aria-current="page" aria-label="當前頁，第{{ . }}頁">
+            {{ . }}
+        </span>
+        {{- else -}}
+        <a href="{{ (index $.Paginator.Pagers (sub . 1)).URL }}" 
+           class="join-item btn btn-outline"
+           aria-label="第{{ . }}頁">
+            {{ . }}
+        </a>
+        {{- end -}}
+        {{- end -}}
+        
+        <!-- 顯示結束省略號 -->
+        {{- if lt $endPage $totalPages -}}
+        {{- if lt $endPage (sub $totalPages 1) -}}
+        <span class="join-item btn btn-disabled">...</span>
+        {{- end -}}
+        <a href="{{ $paginator.Last.URL }}" class="join-item btn btn-outline">{{ $totalPages }}</a>
+        {{- end -}}
+        
+        <!-- 下一頁按鈕 -->
+        {{- if $paginator.HasNext -}}
+        <a href="{{ $paginator.Next.URL }}" 
+           class="join-item btn btn-outline" 
+           aria-label="下一頁，第{{ $paginator.Next.PageNumber }}頁"
+           title="下一頁">
+            <span class="hidden sm:inline">下一頁</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
+        {{- end -}}
+        
+        <!-- 最後一頁按鈕 -->
+        {{- if lt $paginator.PageNumber (sub $totalPages 1) -}}
+        <a href="{{ $paginator.Last.URL }}" 
+           class="join-item btn btn-outline" 
+           aria-label="最後一頁"
+           title="最後一頁">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+            </svg>
+        </a>
+        {{- end -}}
+    </div>
+    
+    <!-- 分頁資訊 -->
+    <div class="text-center mt-4 text-sm text-base-content/70">
+        第 {{ $paginator.PageNumber }} 頁，共 {{ $paginator.TotalPages }} 頁
+        ({{ $paginator.TotalNumberOfElements }} 項結果)
+    </div>
+</nav>
+{{- end -}}

@@ -1,0 +1,66 @@
+{{/*
+Meta Tags Component
+Usage: {{ partial "_partials/seo/meta-tags.html" . }}
+*/}}
+
+{{- $title := .Title -}}
+{{- $description := .Description | default .Summary | default site.Params.description -}}
+{{- $keywords := .Params.tags | default slice -}}
+{{- $author := .Params.author | default site.Params.author -}}
+{{- $canonical := .Permalink -}}
+
+{{- if .IsHome -}}
+  {{- $title = site.Title -}}
+  {{- $description = site.Params.description -}}
+{{- else -}}
+  {{- $title = printf "%s - %s" .Title site.Title -}}
+{{- end -}}
+
+<!-- Basic Meta Tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{ $description | truncate 160 }}">
+{{- if $keywords }}
+<meta name="keywords" content="{{ delimit $keywords ", " }}">
+{{- end }}
+{{- if $author }}
+<meta name="author" content="{{ $author }}">
+{{- end }}
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ $canonical }}">
+
+<!-- Robots -->
+{{- if .Params.noindex }}
+<meta name="robots" content="noindex, nofollow">
+{{- else }}
+<meta name="robots" content="index, follow">
+{{- end }}
+
+<!-- Language -->
+<meta name="language" content="{{ site.Language.Lang }}">
+
+<!-- Generator -->
+<meta name="generator" content="Hugo {{ hugo.Version }}">
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#3B82F6">
+
+<!-- Additional Meta Tags -->
+{{- if .Date }}
+<meta name="date" content="{{ .Date.Format "2006-01-02" }}">
+{{- end }}
+{{- if .Lastmod }}
+<meta name="last-modified" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+{{- if .ExpiryDate }}
+<meta name="expires" content="{{ .ExpiryDate.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+
+<!-- DNS Prefetch -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1,0 +1,110 @@
+{{/*
+Structured Data (JSON-LD) Component
+Usage: {{ partial "_partials/seo/structured-data.html" . }}
+*/}}
+
+{{- $type := "Article" -}}
+{{- $title := .Title -}}
+{{- $description := .Description | default .Summary | default site.Params.description -}}
+{{- $url := .Permalink -}}
+{{- $author := .Params.author | default site.Params.author -}}
+{{- $image := "" -}}
+
+{{- if .IsHome -}}
+  {{- $type = "WebSite" -}}
+  {{- $title = site.Title -}}
+  {{- $description = site.Params.description -}}
+  {{- $url = site.BaseURL -}}
+{{- end -}}
+
+{{- if .Params.image -}}
+  {{- $resource := .Page.Resources.GetMatch .Params.image -}}
+  {{- if $resource -}}
+    {{- $image = $resource.Permalink -}}
+  {{- else -}}
+    {{- $image = .Params.image | absURL -}}
+  {{- end -}}
+{{- else if site.Params.seo.image -}}
+  {{- $image = site.Params.seo.image | absURL -}}
+{{- end -}}
+
+<script type="application/ld+json">
+{{- if .IsHome -}}
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.Title }}",
+  "url": "{{ site.BaseURL }}",
+  "description": "{{ site.Params.description }}",
+  "inLanguage": "{{ site.Language.Lang }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "url": "{{ site.BaseURL }}"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ site.BaseURL }}/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+{{- else if .IsPage -}}
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ $title }}",
+  "description": "{{ $description | truncate 300 }}",
+  "url": "{{ $url }}",
+  "inLanguage": "{{ site.Language.Lang }}",
+  {{- if .Date }}
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  {{- end }}
+  {{- if .Lastmod }}
+  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+  {{- end }}
+  {{- if $image }}
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ $image }}"
+  },
+  {{- end }}
+  "author": {
+    "@type": "Person",
+    "name": "{{ $author }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "url": "{{ site.BaseURL }}"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ $url }}"
+  }
+  {{- if .Params.tags }},
+  "keywords": [
+    {{- range $index, $tag := .Params.tags -}}
+      {{- if $index }},{{ end }}"{{ $tag }}"
+    {{- end -}}
+  ]
+  {{- end }}
+}
+{{- else if .IsSection -}}
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{{ .Title }}",
+  "description": "{{ .Description | default .Summary | default site.Params.description }}",
+  "url": "{{ .Permalink }}",
+  "inLanguage": "{{ site.Language.Lang }}",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "{{ site.Title }}",
+    "url": "{{ site.BaseURL }}"
+  }
+}
+{{- end -}}
+</script>

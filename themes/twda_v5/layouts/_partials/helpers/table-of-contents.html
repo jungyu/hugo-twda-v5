@@ -1,0 +1,26 @@
+{{/*
+Table of Contents (TOC) Generator
+Usage: {{ partial "_partials/helpers/table-of-contents.html" . }}
+*/}}
+
+{{- if .TableOfContents -}}
+  {{- $toc := .TableOfContents -}}
+  {{- if $toc -}}
+    <div class="toc-container bg-base-200 p-4 rounded-lg my-6">
+      <h3 class="text-lg font-semibold mb-3 flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+        </svg>
+        {{- if site.Language.Lang | eq "zh-tw" -}}
+          目錄
+        {{- else -}}
+          Table of Contents
+        {{- end -}}
+      </h3>
+      
+      <nav class="toc prose prose-sm max-w-none">
+        {{ $toc | safeHTML }}
+      </nav>
+    </div>
+  {{- end -}}
+{{- end -}}

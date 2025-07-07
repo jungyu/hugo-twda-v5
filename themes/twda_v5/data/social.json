@@ -1,0 +1,50 @@
+[
+  {
+    "name": "GitHub",
+    "icon": "fab fa-github",
+    "url": "https://github.com/yourusername",
+    "description": "GitHub 程式碼倉庫"
+  },
+  {
+    "name": "Twitter",
+    "icon": "fab fa-twitter",
+    "url": "https://twitter.com/yourusername",
+    "description": "Twitter 社群動態"
+  },
+  {
+    "name": "LinkedIn",
+    "icon": "fab fa-linkedin",
+    "url": "https://linkedin.com/in/yourusername",
+    "description": "LinkedIn 專業檔案"
+  },
+  {
+    "name": "Facebook",
+    "icon": "fab fa-facebook",
+    "url": "https://facebook.com/yourusername",
+    "description": "Facebook 粉絲專頁"
+  },
+  {
+    "name": "Instagram",
+    "icon": "fab fa-instagram",
+    "url": "https://instagram.com/yourusername",
+    "description": "Instagram 生活分享"
+  },
+  {
+    "name": "YouTube",
+    "icon": "fab fa-youtube",
+    "url": "https://youtube.com/@yourusername",
+    "description": "YouTube 影片頻道"
+  },
+  {
+    "name": "Email",
+    "icon": "fas fa-envelope",
+    "url": "mailto:contact@example.com",
+    "description": "電子郵件聯絡"
+  },
+  {
+    "name": "RSS",
+    "icon": "fas fa-rss",
+    "url": "/index.xml",
+    "description": "RSS 訂閱"
+  }
+]

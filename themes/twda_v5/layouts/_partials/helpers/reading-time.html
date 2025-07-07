@@ -1,0 +1,26 @@
+{{/*
+Reading Time Calculator
+Usage: {{ partial "_partials/helpers/reading-time.html" . }}
+Returns: "5 min read"
+*/}}
+
+{{- $content := .Content | plainify -}}
+{{- $words := split $content " " -}}
+{{- $wordCount := len $words -}}
+{{- $readingSpeed := 200 -}} <!-- words per minute -->
+{{- $minutes := div $wordCount $readingSpeed -}}
+{{- $seconds := mod (div (mul $wordCount 60) $readingSpeed) 60 -}}
+
+{{- if lt $minutes 1 -}}
+  {{- if site.Language.Lang | eq "zh-tw" -}}
+    不到 1 分鐘閱讀
+  {{- else -}}
+    Less than 1 min read
+  {{- end -}}
+{{- else -}}
+  {{- if site.Language.Lang | eq "zh-tw" -}}
+    {{ $minutes }} 分鐘閱讀
+  {{- else -}}
+    {{ $minutes }} min read
+  {{- end -}}
+{{- end -}}

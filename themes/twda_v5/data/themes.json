@@ -1,0 +1,82 @@
+[
+  {
+    "name": "light",
+    "label": "淺色主題",
+    "primary": "#3B82F6",
+    "secondary": "#8B5CF6",
+    "accent": "#F59E0B",
+    "description": "明亮清新的淺色主題"
+  },
+  {
+    "name": "dark",
+    "label": "深色主題",
+    "primary": "#60A5FA",
+    "secondary": "#A78BFA",
+    "accent": "#FBBF24",
+    "description": "護眼舒適的深色主題"
+  },
+  {
+    "name": "cupcake",
+    "label": "蛋糕主題",
+    "primary": "#F472B6",
+    "secondary": "#C084FC",
+    "accent": "#FB7185",
+    "description": "甜美可愛的粉色主題"
+  },
+  {
+    "name": "bumblebee",
+    "label": "大黃蜂主題",
+    "primary": "#FED7AA",
+    "secondary": "#FEF3C7",
+    "accent": "#FBBF24",
+    "description": "活力十足的黃色主題"
+  },
+  {
+    "name": "emerald",
+    "label": "翡翠主題",
+    "primary": "#10B981",
+    "secondary": "#34D399",
+    "accent": "#F59E0B",
+    "description": "清新自然的綠色主題"
+  },
+  {
+    "name": "corporate",
+    "label": "企業主題",
+    "primary": "#1E40AF",
+    "secondary": "#3730A3",
+    "accent": "#DC2626",
+    "description": "專業穩重的企業主題"
+  },
+  {
+    "name": "synthwave",
+    "label": "合成波主題",
+    "primary": "#E879F9",
+    "secondary": "#818CF8",
+    "accent": "#F97316",
+    "description": "復古未來的霓虹主題"
+  },
+  {
+    "name": "retro",
+    "label": "復古主題",
+    "primary": "#EF4444",
+    "secondary": "#F97316",
+    "accent": "#84CC16",
+    "description": "懷舊經典的復古主題"
+  },
+  {
+    "name": "cyberpunk",
+    "label": "賽博龐克主題",
+    "primary": "#FACC15",
+    "secondary": "#F472B6",
+    "accent": "#06B6D4",
+    "description": "科幻未來的賽博主題"
+  },
+  {
+    "name": "valentine",
+    "label": "情人節主題",
+    "primary": "#F472B6",
+    "secondary": "#EC4899",
+    "accent": "#FB7185",
+    "description": "浪漫溫馨的粉色主題"
+  }
+]

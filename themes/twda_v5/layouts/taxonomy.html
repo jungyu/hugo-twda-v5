@@ -1,0 +1,42 @@
+{{- define "main" -}}
+<div class="container mx-auto max-w-6xl">
+    <!-- 分類法標題 -->
+    <header class="mb-12 text-center">
+        <h1 class="text-4xl font-bold mb-4 text-primary">{{ .Title }}</h1>
+        <p class="text-lg text-base-content/80 max-w-2xl mx-auto">
+            瀏覽所有 {{ .Title }} 分類
+        </p>
+    </header>
+    
+    <!-- 分類法列表 -->
+    {{- if .Data.Terms -}}
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {{- range .Data.Terms.ByCount -}}
+        <div class="card bg-base-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="card-body">
+                <h2 class="card-title text-lg">
+                    <a href="{{ .Page.RelPermalink }}" class="link link-hover">
+                        {{ .Page.Title }}
+                    </a>
+                </h2>
+                
+                <div class="flex items-center justify-between mt-4">
+                    <span class="badge badge-primary">{{ .Count }} 篇文章</span>
+                    <svg class="w-4 h-4 text-base-content/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        {{- end -}}
+    </div>
+    {{- else -}}
+    <!-- 空狀態 -->
+    <div class="text-center py-16">
+        <div class="text-6xl mb-4">🏷️</div>
+        <h3 class="text-2xl font-bold mb-2">尚無分類</h3>
+        <p class="text-base-content/70">目前還沒有任何分類標籤。</p>
+    </div>
+    {{- end -}}
+</div>
+{{- end -}}

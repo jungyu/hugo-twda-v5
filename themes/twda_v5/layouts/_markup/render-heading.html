@@ -1,0 +1,37 @@
+{{/*
+Heading Render Hook - Enhanced heading with anchor links
+Hugo will use this template to render headings in Markdown content
+*/}}
+
+{{- $level := .Level -}}
+{{- $text := .Text -}}
+{{- $anchor := .Anchor -}}
+{{- $page := .Page -}}
+
+{{- $classes := "scroll-mt-16" -}}
+{{- if eq $level 1 -}}
+  {{- $classes = printf "%s text-4xl font-bold mb-6 text-primary" $classes -}}
+{{- else if eq $level 2 -}}
+  {{- $classes = printf "%s text-3xl font-bold mb-5 text-primary" $classes -}}
+{{- else if eq $level 3 -}}
+  {{- $classes = printf "%s text-2xl font-bold mb-4 text-primary" $classes -}}
+{{- else if eq $level 4 -}}
+  {{- $classes = printf "%s text-xl font-bold mb-3 text-primary" $classes -}}
+{{- else if eq $level 5 -}}
+  {{- $classes = printf "%s text-lg font-bold mb-2 text-primary" $classes -}}
+{{- else -}}
+  {{- $classes = printf "%s text-base font-bold mb-2 text-primary" $classes -}}
+{{- end -}}
+
+<h{{ $level }} id="{{ $anchor }}" class="{{ $classes }}">
+  <a href="#{{ $anchor }}" 
+     class="group flex items-center no-underline hover:no-underline"
+     aria-label="Link to {{ $text }}">
+    <span class="mr-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+      </svg>
+    </span>
+    {{ $text }}
+  </a>
+</h{{ $level }}>

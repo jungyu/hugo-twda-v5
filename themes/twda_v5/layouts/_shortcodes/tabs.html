@@ -1,0 +1,60 @@
+{{/*
+Tabs Shortcode - DaisyUI v5 Compatible
+Usage: 
+{{< tabs >}}
+{{< tab "Tab 1" >}}
+Content for tab 1
+{{< /tab >}}
+{{< tab "Tab 2" >}}
+Content for tab 2
+{{< /tab >}}
+{{< /tabs >}}
+*/}}
+
+{{- $id := .Get "id" | default (printf "tabs-%d" (now.UnixMilli)) -}}
+{{- $style := .Get "style" | default "tabs-bordered" -}}
+{{- $class := .Get "class" | default "" -}}
+
+{{- $tabsClasses := slice "tabs" $style -}}
+{{- if $class -}}
+  {{- $tabsClasses = $tabsClasses | append $class -}}
+{{- end -}}
+
+<div class="tabs-container my-6" x-data="{ activeTab: 0 }">
+  <div role="tablist" class="{{ delimit $tabsClasses " " }}">
+    {{- $tabs := split .Inner "{{< tab" -}}
+    {{- range $index, $tab := $tabs -}}
+      {{- if $tab -}}
+        {{- $titleMatch := findRE `"([^"]*)"` $tab -}}
+        {{- if $titleMatch -}}
+          {{- $title := index $titleMatch 0 | strings.Trim "\"" -}}
+          <button role="tab" 
+                  class="tab"
+                  :class="{ 'tab-active': activeTab === {{ $index }} }"
+                  @click="activeTab = {{ $index }}"
+                  :aria-selected="activeTab === {{ $index }} ? 'true' : 'false'"
+                  :tabindex="activeTab === {{ $index }} ? '0' : '-1'"
+                  aria-controls="tab-panel-{{ $index }}">
+            {{ $title }}
+          </button>
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  </div>
+  
+  <div class="tab-content mt-4">
+    {{- range $index, $tab := $tabs -}}
+      {{- if $tab -}}
+        {{- $content := replaceRE `"[^"]*"[^>]*>` "" $tab -}}
+        {{- $content = replaceRE `{{< /tab >}}.*` "" $content -}}
+        <div id="tab-panel-{{ $index }}" 
+             role="tabpanel" 
+             class="tab-panel prose max-w-none"
+             x-show="activeTab === {{ $index }}"
+             :aria-hidden="activeTab === {{ $index }} ? 'false' : 'true'">
+          {{ $content | markdownify }}
+        </div>
+      {{- end -}}
+    {{- end -}}
+  </div>
+</div>

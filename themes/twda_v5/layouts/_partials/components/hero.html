@@ -1,0 +1,45 @@
+{{/*
+Hero Component - DaisyUI v5 Compatible
+Usage: {{ partial "_partials/components/hero.html" (dict "title" "Hero Title" "subtitle" "Hero subtitle" "image" "/images/hero.jpg" "cta" (dict "text" "Call to Action" "url" "/cta") "overlay" true) }}
+*/}}
+
+{{- $title := .title | default "" -}}
+{{- $subtitle := .subtitle | default "" -}}
+{{- $image := .image | default "" -}}
+{{- $cta := .cta | default dict -}}
+{{- $overlay := .overlay | default false -}}
+{{- $class := .class | default "" -}}
+{{- $height := .height | default "min-h-screen" -}}
+
+{{- $heroClasses := slice "hero" $height -}}
+{{- if $class -}}
+  {{- $heroClasses = $heroClasses | append $class -}}
+{{- end -}}
+
+<section class="{{ delimit $heroClasses " " }}"
+         {{- if $image }} style="background-image: url('{{ $image }}');"{{ end -}}
+         role="banner">
+  
+  {{- if and $image $overlay -}}
+    <div class="hero-overlay bg-opacity-60"></div>
+  {{- end -}}
+  
+  <div class="hero-content text-center {{ if $image }}text-neutral-content{{ end }}">
+    <div class="max-w-md">
+      {{- if $title -}}
+        <h1 class="mb-5 text-5xl font-bold">{{ $title }}</h1>
+      {{- end -}}
+      
+      {{- if $subtitle -}}
+        <p class="mb-5 text-lg opacity-90">{{ $subtitle }}</p>
+      {{- end -}}
+      
+      {{- if $cta.text -}}
+        <a href="{{ $cta.url | default "#" }}" 
+           class="btn btn-primary btn-lg">
+          {{ $cta.text }}
+        </a>
+      {{- end -}}
+    </div>
+  </div>
+</section>
