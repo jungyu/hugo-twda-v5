@@ -1,14 +1,21 @@
 <!-- SEO Meta Tags -->
-{{- partial "_partials/seo/meta-tags.html" . -}}
+{{- partial "seo/meta-tags.html" . -}}
 
 <!-- Open Graph & Twitter Cards -->
-{{- partial "_partials/seo/open-graph.html" . -}}
+{{- partial "seo/open-graph.html" . -}}
 
 <!-- Structured Data -->
-{{- partial "_partials/seo/structured-data.html" . -}}
+{{- partial "seo/structured-data.html" . -}}
 
 <!-- Canonical URL -->
 <link rel="canonical" href="{{ .Permalink }}">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | relURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "/favicon-16x16.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "/favicon-32x32.png" | relURL }}">
+<link rel="apple-touch-icon" href="{{ "/apple-touch-icon.png" | relURL }}">
+<link rel="manifest" href="{{ "/site.webmanifest" | relURL }}">
 
 <!-- 語言設定 -->
 <meta name="language" content="{{ site.LanguageCode | default "zh-TW" }}">

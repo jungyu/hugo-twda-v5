@@ -17,12 +17,12 @@ Usage: {{ partial "_partials/helpers/social-share.html" . }}
   {{- end -}}
 {{- end -}}
 
-{{- $twitter := printf "https://twitter.com/intent/tweet?url=%s&text=%s" (urls.QueryEscape $url) (urls.QueryEscape $title) -}}
-{{- $facebook := printf "https://www.facebook.com/sharer/sharer.php?u=%s" (urls.QueryEscape $url) -}}
-{{- $linkedin := printf "https://www.linkedin.com/sharing/share-offsite/?url=%s" (urls.QueryEscape $url) -}}
-{{- $whatsapp := printf "https://wa.me/?text=%s %s" (urls.QueryEscape $title) (urls.QueryEscape $url) -}}
-{{- $telegram := printf "https://t.me/share/url?url=%s&text=%s" (urls.QueryEscape $url) (urls.QueryEscape $title) -}}
-{{- $email := printf "mailto:?subject=%s&body=%s" (urls.QueryEscape $title) (urls.QueryEscape (printf "%s %s" $description $url)) -}}
+{{- $twitter := printf "https://twitter.com/intent/tweet?url=%s&text=%s" ($url | urlquery) ($title | urlquery) -}}
+{{- $facebook := printf "https://www.facebook.com/sharer/sharer.php?u=%s" ($url | urlquery) -}}
+{{- $linkedin := printf "https://www.linkedin.com/sharing/share-offsite/?url=%s" ($url | urlquery) -}}
+{{- $whatsapp := printf "https://wa.me/?text=%s %s" ($title | urlquery) ($url | urlquery) -}}
+{{- $telegram := printf "https://t.me/share/url?url=%s&text=%s" ($url | urlquery) ($title | urlquery) -}}
+{{- $email := printf "mailto:?subject=%s&body=%s" ($title | urlquery) (printf "%s %s" $description $url | urlquery) -}}
 
 <div class="social-share mt-8 p-4 border-t border-base-300">
   <h3 class="text-lg font-semibold mb-4">

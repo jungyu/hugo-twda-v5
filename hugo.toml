@@ -1,0 +1,49 @@
+# Hugo v0.147.9+ 基礎配置 (新模板系統)
+baseURL = 'http://localhost:1313/'
+languageCode = 'zh-tw'
+title = 'Hugo-DaisyUI5 專案'
+theme = 'twda_v5'
+
+# 內容與發佈設定
+defaultContentLanguage = 'zh-tw'
+hasCJKLanguage = true
+enableEmoji = true
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+# 主要內容章節
+mainSections = ["blogs", "posts"]
+
+# 建構設定 (Hugo v0.147.9+ 最佳化)
+[build]
+  writeStats = true
+
+# 輸出格式
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+
+# 分類系統
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  author = "authors"
+
+# 網站參數
+[params]
+  subtitle = "現代靜態網站開發範例"
+  description = "基於 Hugo v0.147.9 + TailwindCSS v4.1.11 + DaisyUI v5.0.43 的現代靜態網站"
+  author = "Aaron Chen"
+  
+  # 主題設定
+  theme_color = "#1d232a"
+  default_theme = "light"
+  
+  # 功能開關
+  search_enabled = true
+  theme_switcher = true
+  
+  # 社交媒體
+  github = "https://github.com/your-username"
+  twitter = "https://twitter.com/your-username"

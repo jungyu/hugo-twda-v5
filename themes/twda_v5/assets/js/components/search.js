@@ -1,4 +1,6 @@
 // Alpine.js 搜尋元件 (使用 Fuse.js)
+import Fuse from 'fuse.js'
+
 document.addEventListener('alpine:init', () => {
   Alpine.data('search', () => ({
     query: '',
@@ -13,13 +15,12 @@ document.addEventListener('alpine:init', () => {
           this.performSearch()
         } else {
           this.results = []
+          this.showResults = false
         }
       })
       
-      // 動態載入 Fuse.js (僅在需要時)
-      if (!this.fuseInstance) {
-        this.loadSearchIndex()
-      }
+      // 載入搜尋索引
+      this.loadSearchIndex()
     },
     
     async loadSearchIndex() {
@@ -43,24 +44,18 @@ document.addEventListener('alpine:init', () => {
           
           // 如果緩存不超過一天，直接使用緩存數據
           if (cacheAge < 86400000) {
-            // 載入 Fuse.js 函式庫
-            if (typeof Fuse === 'undefined') {
-              await import('fuse.js')
-            }
-            
             this.fuseInstance = new Fuse(data, fuseOptions)
             this.isLoading = false
             return
           }
         }
         
-        // 載入 Fuse.js 函式庫
-        if (typeof Fuse === 'undefined') {
-          await import('fuse.js')
-        }
-        
         // 從服務器獲取最新索引
         const response = await fetch('/index.json')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
         const searchData = await response.json()
         
         // 建立 Fuse 實例

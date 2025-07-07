@@ -20,7 +20,11 @@ Usage: {{ partial "_partials/components/breadcrumb.html" . }}
   {{- end -}}
   
   {{- $pages = $pages | append site.Home -}}
-  {{- $pages = $pages | reverse -}}
+  {{- $reversedPages := slice -}}
+  {{- range $pages -}}
+    {{- $reversedPages = slice . | append $reversedPages -}}
+  {{- end -}}
+  {{- $pages = $reversedPages -}}
 {{- end -}}
 
 {{- if gt (len $pages) 1 -}}
