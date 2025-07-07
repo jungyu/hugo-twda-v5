@@ -1,0 +1,64 @@
+# 網站參數配置
+
+# 網站基本資訊
+description = "基於 Hugo v0.147.9 + TailwindCSS v4.1.11 + DaisyUI v5.0.43 的現代靜態網站"
+author = "Aaron Chen"
+copyright = "© 2024 Hugo-DaisyUI5 專案"
+
+# 社交媒體連結
+[social]
+  github = "https://github.com/yourusername/Hugo-DaisyUI5"
+  twitter = "https://twitter.com/yourusername"
+
+# SEO 相關設定
+[seo]
+  enableSitemap = true
+  enableRobotsTXT = true
+  canonicalURL = true
+
+# 佈局與顯示設定
+[layout]
+  enableTOC = true  # 啟用目錄
+  tocDepth = 3      # 目錄深度
+  enableBreadcrumb = true  # 啟用麵包屑導航
+
+# 主題配置
+[theme]
+  defaultTheme = "light" # 'light', 'dark', or 'system'
+  enableThemeToggle = true
+  accentColor = "#147df3"
+  
+# 網站功能選項
+[features]
+  enableSearch = true  # 啟用網站搜尋
+  enableDarkMode = true  # 啟用深色模式
+  enableCodeCopy = true  # 啟用程式碼複製按鈕
+  codeHighlightTheme = "github-dark" # 程式碼高亮主題
+  
+# 顯示選項
+[display]
+  dateFormat = "2006/01/02"
+
+# 首頁功能配置
+[homepage]
+  newsletter = true
+  
+  # 特色功能
+  [[homepage.features]]
+    icon = "🚀"
+    title = "高效能"
+    description = "使用 Hugo 靜態網站產生器，提供極速載入體驗"
+  
+  [[homepage.features]]
+    icon = "🎨"
+    title = "現代設計"
+    description = "採用 TailwindCSS + DaisyUI，打造美觀且響應式的介面"
+  
+  [[homepage.features]]
+    icon = "⚡"
+    title = "易於使用"
+    description = "簡潔的架構設計，讓內容創作和網站維護變得輕鬆"
+
+# 頁腳配置
+[footer]
+  powered_by = true

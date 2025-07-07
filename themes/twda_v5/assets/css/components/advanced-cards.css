@@ -1,0 +1,48 @@
+/* 進階卡片元件集合 */
+
+/* 視差卡片 */
+.card-parallax {
+  @apply card overflow-hidden;
+  @apply relative transform transition-transform duration-700;
+  @apply hover:z-10;
+}
+
+.card-parallax .card-image {
+  @apply h-48 relative overflow-hidden;
+  @apply transition-transform duration-700 ease-out;
+}
+
+.card-parallax:hover .card-image {
+  @apply transform scale-105;
+}
+
+.card-parallax .card-body {
+  @apply transform transition-all duration-500;
+}
+
+.card-parallax:hover .card-body {
+  @apply bg-base-100/90 backdrop-blur-sm;
+}
+
+/* 3D 翻轉卡片 */
+.card-flip {
+  @apply relative h-64 w-full perspective-1000;
+}
+
+.card-flip-inner {
+  @apply relative w-full h-full transition-transform duration-500;
+  transform-style: preserve-3d;
+}
+
+.card-flip:hover .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.card-flip-front, .card-flip-back {
+  @apply card absolute w-full h-full backface-hidden;
+}
+
+.card-flip-back {
+  transform: rotateY(180deg);
+  @apply bg-primary text-primary-content;
+}

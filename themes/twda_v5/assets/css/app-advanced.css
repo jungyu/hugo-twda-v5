@@ -1,0 +1,430 @@
+/* TailwindCSS v4 + DaisyUI v5 進階整合 */
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light, dark, cupcake, dracula, autumn, emerald;
+  darkTheme: dark;
+  logs: false;
+}
+
+/* 基礎按鈕元件 */
+.btn-gradient {
+  background: linear-gradient(to right, hsl(var(--p)), hsl(var(--s)));
+  color: hsl(var(--pc));
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(to right, hsl(var(--pf)), hsl(var(--sf)));
+}
+
+.btn-outline-gradient {
+  border: 2px solid hsl(var(--p));
+  background: transparent;
+  color: hsl(var(--p));
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-gradient:hover {
+  background: linear-gradient(to right, hsl(var(--p)), hsl(var(--s)));
+  color: hsl(var(--pc));
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-shadow {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-shadow:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-4px);
+}
+
+/* 進階按鈕效果 */
+.btn-pulse {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  transform: scale(0);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.5); opacity: 0.4; }
+  50% { opacity: 0.2; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.btn-float {
+  transition: transform 0.3s ease;
+}
+
+.btn-float:hover {
+  transform: translateY(-4px);
+}
+
+.btn-float:active {
+  transform: translateY(0);
+}
+
+.btn-glow {
+  position: relative;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: hsl(var(--p) / 0.2);
+  opacity: 0;
+  filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover::before {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* 基礎卡片元件 */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-gradient {
+  background: linear-gradient(135deg, hsl(var(--p)) 0%, hsl(var(--s)) 100%);
+}
+
+.card-bordered-thick {
+  border: 2px solid hsl(var(--bc) / 0.2);
+}
+
+.card-shadow-xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* 進階卡片元件 */
+.card-parallax {
+  overflow: hidden;
+  position: relative;
+  transform: translateZ(0);
+  transition: transform 0.7s ease;
+}
+
+.card-parallax:hover {
+  z-index: 10;
+}
+
+.card-parallax .card-image {
+  height: 12rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.7s ease-out;
+}
+
+.card-parallax:hover .card-image {
+  transform: scale(1.05);
+}
+
+.card-parallax .card-body {
+  transform: translateZ(0);
+  transition: all 0.5s ease;
+}
+
+.card-parallax:hover .card-body {
+  background: hsl(var(--b1) / 0.9);
+  backdrop-filter: blur(4px);
+}
+
+/* 3D 翻轉卡片 */
+.card-flip {
+  position: relative;
+  height: 16rem;
+  width: 100%;
+  perspective: 1000px;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.card-flip:hover .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.card-flip-front, .card-flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-flip-back {
+  transform: rotateY(180deg);
+  background: hsl(var(--p));
+  color: hsl(var(--pc));
+}
+
+/* 基礎表單元件 */
+.form-floating {
+  position: relative;
+}
+
+.form-floating input {
+  height: 3.5rem;
+  line-height: 1.25;
+  padding: 1rem 0.75rem 0.25rem;
+}
+
+.form-floating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1rem 0.75rem;
+  pointer-events: none;
+  border: 1px solid transparent;
+  transform-origin: 0 0;
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.form-floating input:focus ~ label,
+.form-floating input:not(:placeholder-shown) ~ label {
+  opacity: 0.65;
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control-lg {
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+}
+
+.form-control-sm {
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+}
+
+.form-validation {
+  border-color: hsl(var(--er));
+}
+
+.form-validation:focus {
+  border-color: hsl(var(--er));
+  box-shadow: 0 0 0 0.2rem rgba(248, 113, 113, 0.25);
+}
+
+.form-success {
+  border-color: hsl(var(--su));
+}
+
+.form-success:focus {
+  border-color: hsl(var(--su));
+  box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25);
+}
+
+/* 進階表單元件 */
+.form-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.form-stepper-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.form-stepper-step-number {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: hsl(var(--b3));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: hsl(var(--bc));
+  transition: all 0.3s ease;
+}
+
+.form-stepper-step.active .form-stepper-step-number {
+  background: hsl(var(--p));
+  color: hsl(var(--pc));
+}
+
+.form-stepper-step.completed .form-stepper-step-number {
+  background: hsl(var(--su));
+  color: hsl(var(--suc));
+}
+
+.form-stepper-step-label {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.form-stepper-line {
+  flex: 1;
+  height: 0.25rem;
+  background: hsl(var(--b3));
+}
+
+.form-stepper-line.active {
+  background: hsl(var(--p));
+}
+
+/* 動畫組件 */
+.animate-floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease-out;
+}
+
+/* 可訪問性增強 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  white-space: normal;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  clip: auto;
+  clip-path: none;
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--p));
+  outline-offset: 2px;
+}
+
+.skip-to-content {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  margin: 0.75rem;
+  background: hsl(var(--p));
+  color: hsl(var(--pc));
+  padding: 1rem;
+}
+
+.skip-to-content:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  white-space: normal;
+  clip: auto;
+  clip-path: none;
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--pf));
+}
+
+/* 關鍵幀動畫 */
+@keyframes floating {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  70% { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.card-animation {
+  animation: slideInUp 0.6s ease-out;
+}

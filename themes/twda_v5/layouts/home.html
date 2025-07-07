@@ -1,0 +1,175 @@
+{{- define "main" -}}
+<!-- Hero Section -->
+<section class="hero min-h-[60vh] bg-gradient-to-br from-primary to-secondary">
+    <div class="hero-content text-center text-primary-content">
+        <div class="max-w-4xl">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                {{ site.Title | default "TWDA v5" }}
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                {{ site.Params.description | default "使用 Hugo + TailwindCSS + DaisyUI 建立的現代化網站" }}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#latest-posts" class="btn btn-accent btn-lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                    探索內容
+                </a>
+                <a href="/about/" class="btn btn-outline btn-lg">關於我們</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 主題切換示例區塊 -->
+<section class="py-8 bg-base-200">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold mb-4">主題切換示例</h2>
+            <p class="text-base-content/80">試試看不同的主題切換器：</p>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-6">
+            <!-- 下拉式主題選單 -->
+            <div class="card bg-base-100 shadow-lg">
+                <div class="card-body text-center">
+                    <h3 class="card-title text-sm">下拉選單</h3>
+                    {{ partial "theme-switcher-dropdown.html" . }}
+                </div>
+            </div>
+            
+            <!-- 單選按鈕組 -->
+            <div class="card bg-base-100 shadow-lg">
+                <div class="card-body text-center">
+                    <h3 class="card-title text-sm">單選按鈕</h3>
+                    {{ partial "theme-switcher-radio.html" . }}
+                </div>
+            </div>
+            
+            <!-- Swap 切換器 -->
+            <div class="card bg-base-100 shadow-lg">
+                <div class="card-body text-center">
+                    <h3 class="card-title text-sm">Swap 切換器</h3>
+                    {{ partial "theme-switcher-swap.html" . }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+{{- if site.Params.homepage.features -}}
+<section class="py-16 bg-base-200">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">特色功能</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            {{- range site.Params.homepage.features -}}
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                <div class="card-body text-center">
+                    <div class="text-4xl mb-4">{{ .icon }}</div>
+                    <h3 class="card-title justify-center text-primary">{{ .title }}</h3>
+                    <p class="text-base-content/80">{{ .description }}</p>
+                </div>
+            </div>
+            {{- end -}}
+        </div>
+    </div>
+</section>
+{{- end -}}
+
+<!-- Latest Posts Section -->
+{{- $recentPosts := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse | first 6 -}}
+{{- if $recentPosts -}}
+<section id="latest-posts" class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">最新文章</h2>
+            <p class="text-lg text-base-content/80">探索我們的最新內容與想法</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {{- range $recentPosts -}}
+            <article class="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                {{- if .Params.featured_image -}}
+                <figure>
+                    <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="w-full h-48 object-cover">
+                </figure>
+                {{- end -}}
+                
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <a href="{{ .RelPermalink }}" class="link link-hover">{{ .Title }}</a>
+                    </h3>
+                    
+                    <div class="flex items-center gap-2 text-sm text-base-content/70 mb-3">
+                        {{- if .Date -}}
+                        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                            {{ .Date.Format "2006/01/02" }}
+                        </time>
+                        {{- end -}}
+                        
+                        {{- if .ReadingTime -}}
+                        <span class="badge badge-ghost badge-sm">{{ .ReadingTime }} 分鐘</span>
+                        {{- end -}}
+                    </div>
+                    
+                    {{- if .Summary -}}
+                    <p class="text-base-content/80 line-clamp-3">{{ .Summary }}</p>
+                    {{- end -}}
+                    
+                    {{- if .Params.tags -}}
+                    <div class="flex flex-wrap gap-1 mt-3">
+                        {{- range (first 3 .Params.tags) -}}
+                        <span class="badge badge-outline badge-sm">{{ . }}</span>
+                        {{- end -}}
+                    </div>
+                    {{- end -}}
+                    
+                    <div class="card-actions justify-end mt-4">
+                        <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">閱讀更多</a>
+                    </div>
+                </div>
+            </article>
+            {{- end -}}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="/blogs/" class="btn btn-outline btn-lg">查看所有文章</a>
+        </div>
+    </div>
+</section>
+{{- end -}}
+
+<!-- Newsletter Section -->
+{{- if site.Params.homepage.newsletter -}}
+<section class="py-16 bg-primary text-primary-content">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">訂閱電子報</h2>
+        <p class="text-xl mb-8 opacity-90">接收最新文章與更新通知</p>
+        
+        <form class="max-w-md mx-auto flex gap-2">
+            <input type="email" placeholder="輸入您的電子郵件" class="input input-bordered flex-1" required>
+            <button type="submit" class="btn btn-accent">訂閱</button>
+        </form>
+        
+        <p class="text-sm mt-4 opacity-75">我們重視您的隱私，絕不會濫用您的資訊。</p>
+    </div>
+</section>
+{{- end -}}
+
+<!-- Call to Action -->
+<section class="py-16 bg-base-200">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">開始您的旅程</h2>
+        <p class="text-lg text-base-content/80 mb-8 max-w-2xl mx-auto">
+            探索更多精彩內容，或與我們取得聯繫
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/blogs/" class="btn btn-primary btn-lg">瀏覽文章</a>
+            <a href="/contact/" class="btn btn-outline btn-lg">聯絡我們</a>
+        </div>
+    </div>
+</section>
+{{- end -}}

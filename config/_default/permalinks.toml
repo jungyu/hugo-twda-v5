@@ -1,0 +1,4 @@
+# 永久連結配置
+posts = "/posts/:year/:month/:slug/"
+blogs = "/blogs/:year/:month/:slug/"
+pages = "/:contentbasename/"

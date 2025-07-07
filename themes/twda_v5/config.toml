@@ -1,0 +1,56 @@
+# TWDA v5 主題預設配置
+# 這個文件提供主題的建議配置，可複製到專案根目錄的 config/_default/
+
+baseURL = 'https://example.com'
+languageCode = 'zh-TW'
+title = 'TWDA v5 Theme'
+theme = 'twda_v5'
+
+# 內容與發佈設定
+defaultContentLanguage = 'zh-tw'
+hasCJKLanguage = true
+enableEmoji = true
+enableRobotsTXT = true
+
+# 分頁設定
+[pagination]
+  pagerSize = 10
+  path = "page"
+
+# 標記設定
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github-dark"
+    lineNos = true
+    codeFences = true
+
+# 輸出格式
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+
+# 主題參數
+[params]
+  # 基本資訊
+  description = "現代化靜態網站，基於 Hugo + TailwindCSS + DaisyUI"
+  keywords = ["Hugo", "TailwindCSS", "DaisyUI", "Alpine.js"]
+  author = "開發者"
+  
+  # 主題設定
+  defaultTheme = "dracula"
+  enableThemeToggle = true
+  
+  # 社交連結
+  [params.social]
+    github = "https://github.com/username"
+    twitter = "https://twitter.com/username"
+    
+  # SEO 設定
+  [params.seo]
+    enableOpenGraph = true
+    enableTwitterCard = true
+    enableJsonLd = true

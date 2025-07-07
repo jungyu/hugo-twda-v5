@@ -1,0 +1,48 @@
+/* 基礎按鈕元件 */
+/* 自訂按鈕樣式 */
+.btn-gradient {
+  @apply bg-gradient-to-r from-primary to-secondary text-primary-content;
+  @apply hover:from-primary/80 hover:to-secondary/80;
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.btn-outline-gradient {
+  @apply border-2 border-primary bg-transparent text-primary;
+  @apply hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-primary-content;
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.btn-glass {
+  @apply bg-white/10 backdrop-blur-sm border border-white/20;
+  @apply hover:bg-white/20 hover:border-white/30;
+  @apply text-white transition-all duration-300 ease-in-out;
+}
+
+.btn-shadow {
+  @apply shadow-lg hover:shadow-xl;
+  @apply transform hover:-translate-y-1;
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.btn-icon {
+  @apply flex items-center gap-2;
+}
+
+.btn-icon svg {
+  @apply w-4 h-4;
+}
+
+.btn-loading {
+  @apply relative;
+}
+
+.btn-loading::before {
+  @apply absolute inset-0 bg-current opacity-20 rounded-btn;
+  content: '';
+}
+
+.btn-loading::after {
+  @apply absolute inset-0 flex items-center justify-center;
+  @apply animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full;
+  content: '';
+}

@@ -1,0 +1,45 @@
+# Hugo v0.147.9+ 基礎配置 (新模板系統)
+baseURL = 'https://example.com/'
+languageCode = 'zh-tw'
+title = 'Hugo-DaisyUI5 專案'
+theme = 'twda_v5'
+
+# 內容與發佈設定
+defaultContentLanguage = 'zh-tw'
+hasCJKLanguage = true
+enableEmoji = true
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+# 主要內容章節
+mainSections = ["blogs", "posts"]
+
+# 建構設定 (Hugo v0.147.9+ 最佳化)
+[build]
+  writeStats = true
+
+# 模組配置  
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.140.0"
+
+# 分頁設定 (Hugo v0.128.0+ 新語法)
+[pagination]
+  pagerSize = 10
+  path = "page"
+
+# 標記設定
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
+    lineNos = false
+    codeFences = true
+
+# 社交與 SEO (基本設定，詳細配置在 params.toml)
+[author]
+  name = "Aaron Chen"
+  email = "developer@example.com"

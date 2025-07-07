@@ -1,0 +1,36 @@
+{
+  "name": "hugo-twda-v5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "postcss themes/twda_v5/assets/css/app.css -o static/css/app.css",
+    "watch:css": "postcss themes/twda_v5/assets/css/app.css -o static/css/app.css --watch",
+    "dev": "npm run watch:css",
+    "build": "npm run build:css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@alpinejs/intersect": "^3.14.9",
+    "@alpinejs/persist": "^3.14.9",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@tailwindcss/typography": "^0.5.16",
+    "alpinejs": "^3.14.9",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.11"
+  },
+  "dependencies": {
+    "daisyui": "^5.0.43",
+    "date-fns": "^4.1.0",
+    "fuse.js": "^7.1.0",
+    "katex": "^0.16.22",
+    "mark.js": "^8.11.1",
+    "mermaid": "^11.7.0"
+  }
+}

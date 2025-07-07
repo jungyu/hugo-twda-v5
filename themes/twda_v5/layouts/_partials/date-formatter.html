@@ -1,0 +1,15 @@
+<div x-data="dateFormat" class="date-format">
+  <!-- 日期顯示區域 -->
+  <time 
+    data-post-date="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}"
+    class="text-sm text-base-content/70">
+    <!-- 日期將由 Alpine.js 填充 -->
+  </time>
+  
+  <!-- 相對日期顯示區域 (例如：3天前) -->
+  <span 
+    data-relative-date 
+    class="text-sm text-base-content/70 ml-2">
+    <!-- 相對日期將由 Alpine.js 填充 -->
+  </span>
+</div>

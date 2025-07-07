@@ -1,0 +1,53 @@
+/* 進階表單元件 */
+
+/* 步驟式表單 */
+.form-stepper {
+  @apply flex items-center justify-between mb-8;
+}
+
+.form-stepper-step {
+  @apply flex flex-col items-center relative;
+}
+
+.form-stepper-step-number {
+  @apply w-10 h-10 rounded-full bg-base-300 flex items-center justify-center font-bold;
+  @apply text-base-content transition-all duration-300;
+}
+
+.form-stepper-step.active .form-stepper-step-number {
+  @apply bg-primary text-primary-content;
+}
+
+.form-stepper-step.completed .form-stepper-step-number {
+  @apply bg-success text-success-content;
+}
+
+.form-stepper-step-label {
+  @apply mt-2 text-sm text-center;
+}
+
+.form-stepper-line {
+  @apply flex-1 h-1 bg-base-300;
+}
+
+.form-stepper-line.active {
+  @apply bg-primary;
+}
+
+/* 輸入驗證動畫 */
+.input-validation {
+  @apply relative;
+}
+
+.input-validation-icon {
+  @apply absolute right-3 top-1/2 -translate-y-1/2;
+  @apply opacity-0 transition-opacity duration-300;
+}
+
+.input-validation.valid .input-validation-icon.valid {
+  @apply opacity-100 text-success;
+}
+
+.input-validation.invalid .input-validation-icon.invalid {
+  @apply opacity-100 text-error;
+}

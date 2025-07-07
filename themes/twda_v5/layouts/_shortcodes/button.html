@@ -1,0 +1,23 @@
+{{- $color := .Get "color" | default "primary" -}}
+{{- $size := .Get "size" | default "btn-md" -}}
+{{- $outline := .Get "outline" | default "false" -}}
+{{- $href := .Get "href" -}}
+{{- $target := .Get "target" | default "_self" -}}
+{{- $icon := .Get "icon" -}}
+
+{{- $btnClass := printf "btn btn-%s %s" $color $size -}}
+{{- if eq $outline "true" -}}
+  {{- $btnClass = printf "btn btn-outline btn-outline-%s %s" $color $size -}}
+{{- end -}}
+
+{{- if $href -}}
+<a href="{{ $href }}" target="{{ $target }}" class="{{ $btnClass }}">
+  {{- if $icon -}}{{ $icon | safeHTML }}{{- end -}}
+  {{ .Inner }}
+</a>
+{{- else -}}
+<button class="{{ $btnClass }}">
+  {{- if $icon -}}{{ $icon | safeHTML }}{{- end -}}
+  {{ .Inner }}
+</button>
+{{- end -}}

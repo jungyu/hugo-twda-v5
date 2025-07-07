@@ -1,0 +1,48 @@
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $class := .Get "class" | default "" }}
+{{ $caption := .Get "caption" | default "" }}
+{{ $lazy := .Get "lazy" | default "true" }}
+
+{{ $image := resources.Get $src }}
+{{ if $image }}
+  {{ $tiny := $image.Resize "20x jpg q20" }}
+  {{ $small := $image.Resize "600x webp q85" }}
+  {{ $medium := $image.Resize "1200x webp q85" }}
+  {{ $large := $image.Resize "1800x webp q85" }}
+  {{ $original := $image.Resize "2400x webp q90" }}
+  
+  <figure class="{{ $class }}">
+    <div class="relative overflow-hidden">
+      <!-- 模糊載入預覽 -->
+      <img
+        src="{{ $tiny.RelPermalink }}"
+        class="w-full h-auto filter blur-xl absolute inset-0 object-cover"
+        aria-hidden="true"
+      />
+      
+      <!-- 主要自適應圖片 -->
+      <img
+        {{ if eq $lazy "true" }}loading="lazy"{{ end }}
+        src="{{ $small.RelPermalink }}"
+        srcset="
+          {{ $small.RelPermalink }} 600w,
+          {{ $medium.RelPermalink }} 1200w,
+          {{ $large.RelPermalink }} 1800w,
+          {{ $original.RelPermalink }} 2400w
+        "
+        sizes="(max-width: 600px) 100vw, (max-width: 1200px) 85vw, 75vw"
+        alt="{{ $alt }}"
+        width="{{ $image.Width }}"
+        height="{{ $image.Height }}"
+        class="w-full h-auto relative z-10"
+      />
+    </div>
+    
+    {{ if $caption }}
+      <figcaption class="text-sm text-center mt-2 text-base-content/70">{{ $caption | markdownify }}</figcaption>
+    {{ end }}
+  </figure>
+{{ else }}
+  <div class="p-4 bg-error text-error-content rounded">圖片檔案無法載入: {{ $src }}</div>
+{{ end }}

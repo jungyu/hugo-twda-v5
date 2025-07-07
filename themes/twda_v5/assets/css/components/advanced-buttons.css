@@ -1,0 +1,40 @@
+/* 進階按鈕效果集合 */
+
+/* 漸變效果按鈕 */
+.btn-gradient {
+  @apply bg-gradient-to-r from-primary to-accent border-none text-white;
+  @apply hover:from-primary-focus hover:to-accent-focus;
+  @apply active:from-primary-focus active:to-accent-focus;
+  @apply relative overflow-hidden;
+}
+
+/* 脈衝按鈕 */
+.btn-pulse {
+  @apply relative overflow-hidden;
+}
+
+.btn-pulse::after {
+  @apply content-[''] absolute inset-0 bg-white opacity-0 scale-0;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.5); opacity: 0.4; }
+  50% { opacity: 0.2; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* 浮動效果按鈕 */
+.btn-float {
+  @apply transition-transform duration-300;
+  @apply hover:-translate-y-1 active:translate-y-0;
+}
+
+/* 發光按鈕 */
+.btn-glow {
+  @apply relative;
+  @apply before:absolute before:inset-0 before:rounded-[inherit];
+  @apply before:bg-primary/20 before:opacity-0 before:blur-md;
+  @apply before:transition-all before:duration-300;
+  @apply hover:before:opacity-100 hover:before:scale-110;
+}

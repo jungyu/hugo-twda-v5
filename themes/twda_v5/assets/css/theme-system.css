@@ -1,0 +1,83 @@
+/* 進階多主題系統 */
+
+/* 基本變數定義 */
+:root {
+  /* 全局陰影效果 */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  /* 動畫參數 */
+  --transition-fast: 0.15s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.5s;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  
+  /* 字體大小調整系統 */
+  --font-scale: 1;
+}
+
+/* 字體大小調整類 */
+.font-size-sm {
+  --font-scale: 0.9;
+}
+
+.font-size-base {
+  --font-scale: 1;
+}
+
+.font-size-lg {
+  --font-scale: 1.1;
+}
+
+.font-size-xl {
+  --font-scale: 1.2;
+}
+
+/* 應用字體大小調整 */
+html {
+  font-size: calc(16px * var(--font-scale));
+}
+
+/* 新增額外主題 */
+[data-theme="ocean"] {
+  --primary: 8 145 178; /* #0891b2 */
+  --primary-focus: 8 126 164; /* #087ea4 */
+  --primary-content: 255 255 255; /* #ffffff */
+  
+  --secondary: 6 182 212; /* #06b6d4 */
+  --secondary-focus: 22 163 191; /* #16a3bf */
+  --secondary-content: 255 255 255; /* #ffffff */
+  
+  --accent: 2 132 199; /* #0284c7 */
+  --accent-focus: 3 105 161; /* #0369a1 */
+  --accent-content: 255 255 255; /* #ffffff */
+  
+  /* 基礎色彩 */
+  --base-100: 255 255 255; /* #ffffff */
+  --base-200: 241 245 249; /* #f1f5f9 */
+  --base-300: 226 232 240; /* #e2e8f0 */
+  --base-content: 15 23 42; /* #0f172a */
+}
+
+[data-theme="cherry"] {
+  --primary: 225 29 72; /* #e11d48 */
+  --primary-focus: 190 18 60; /* #be123c */
+  --primary-content: 255 255 255; /* #ffffff */
+  
+  --secondary: 244 63 94; /* #f43f5e */
+  --secondary-focus: 219 39 119; /* #db2777 */
+  --secondary-content: 255 255 255; /* #ffffff */
+  
+  --accent: 249 168 212; /* #f9a8d4 */
+  --accent-focus: 236 72 153; /* #ec4899 */
+  --accent-content: 15 23 42; /* #0f172a */
+  
+  /* 基礎色彩 */
+  --base-100: 255 255 255; /* #ffffff */
+  --base-200: 252 231 243; /* #fce7f3 */
+  --base-300: 249 168 212; /* #f9a8d4 */
+  --base-content: 15 23 42; /* #0f172a */
+}

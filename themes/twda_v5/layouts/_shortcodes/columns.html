@@ -1,0 +1,6 @@
+{{- $columns := .Get "columns" | default "2" -}}
+{{- $gap := .Get "gap" | default "gap-6" -}}
+
+<div class="grid md:grid-cols-{{ $columns }} {{ $gap }} my-6">
+  {{ .Inner | markdownify }}
+</div>

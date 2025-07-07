@@ -1,0 +1,29 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $caption := .Get "caption" -}}
+{{- $class := .Get "class" | default "w-full" -}}
+{{- $lazy := .Get "lazy" | default "true" -}}
+
+<figure class="my-6">
+  {{- if eq $lazy "true" -}}
+  <img 
+    data-src="{{ $src }}" 
+    alt="{{ $alt }}" 
+    class="{{ $class }} rounded-lg shadow-lg transition-opacity duration-300 opacity-0"
+    onload="this.style.opacity=1"
+    loading="lazy"
+  >
+  {{- else -}}
+  <img 
+    src="{{ $src }}" 
+    alt="{{ $alt }}" 
+    class="{{ $class }} rounded-lg shadow-lg"
+  >
+  {{- end -}}
+  
+  {{- if $caption -}}
+  <figcaption class="text-center text-sm text-base-content/70 mt-2">
+    {{ $caption | markdownify }}
+  </figcaption>
+  {{- end -}}
+</figure>

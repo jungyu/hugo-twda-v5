@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode | default "zh-TW" }}" data-theme="light" x-data="{ currentTheme: 'light' }" x-bind:data-theme="currentTheme">
+<head>
+    {{- partial "head.html" . -}}
+</head>
+<body class="min-h-screen bg-base-100 text-base-content">
+    <!-- Hugo v0.147.9+ 新模板系統 -->
+    <!-- TWDA v5 主題 - {{ now.Format "2006-01-02" }} -->
+    
+    <!-- 頁面頂部 (導航) -->
+    {{- partial "header.html" . -}}
+    
+    <!-- 頁面主要內容 -->
+    <main id="content" class="container mx-auto px-4 py-8">
+        {{- block "main" . }}{{- end }}
+    </main>
+    
+    <!-- 頁面底部 -->
+    {{- partial "footer.html" . -}}
+    
+    <!-- 腳本載入 -->
+    {{- partial "scripts.html" . -}}
+</body>
+</html>

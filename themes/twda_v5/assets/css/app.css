@@ -1,0 +1,62 @@
+/* TailwindCSS v4 + DaisyUI v5 完整整合 */
+@import "tailwindcss";
+
+/* 自定義 CSS 變數與中文排版優化 */
+:root {
+  /* 字體系統 */
+  --font-chinese: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "微軟正黑體", "Heiti TC", sans-serif;
+  --font-english: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Consolas, "Monaco", "Cascadia Code", monospace;
+}
+
+/* 全局基礎樣式 */
+html {
+  font-family: var(--font-chinese);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 中文排版優化 */
+.prose {
+  font-family: var(--font-chinese);
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-family: var(--font-chinese);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+.prose p {
+  text-align: justify;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 主題切換動畫 */
+html[data-theme] {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+@import "daisyui/daisyui.css";
+
+/* 自定義樣式 */
+:root {
+  --primary-color: #3b82f6;
+  --secondary-color: #64748b;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+}

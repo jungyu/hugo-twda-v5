@@ -1,0 +1,79 @@
+<!-- 搜尋界面，使用 Alpine.js search 組件 -->
+<div x-data="search" class="search-container w-full max-w-xl mx-auto">
+  <!-- 搜尋輸入框 -->
+  <div class="form-control w-full relative">
+    <input 
+      type="text" 
+      x-model="query" 
+      id="search-query"
+      placeholder="輸入關鍵字搜尋..." 
+      class="input input-bordered w-full pr-10"
+      @focus="showResults = true"
+    />
+    
+    <!-- 清除按鈕 -->
+    <button 
+      x-show="query.length > 0" 
+      @click="clearSearch" 
+      class="absolute inset-y-0 right-0 pr-3 flex items-center"
+      style="display: none;"
+    >
+      <svg class="h-5 w-5 text-base-content/60" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  
+  <!-- 載入中指示器 -->
+  <div x-show="isLoading" class="search-loading mt-4 text-center" style="display: none;">
+    <span class="loading loading-spinner loading-md"></span>
+    <span class="ml-2">載入搜尋結果...</span>
+  </div>
+  
+  <!-- 搜尋結果 -->
+  <div 
+    x-show="showResults && query.length > 2" 
+    @click.away="showResults = false"
+    class="search-results mt-2 bg-base-100 rounded-box shadow-lg border border-base-300 overflow-hidden"
+    style="display: none;"
+  >
+    <div id="search-results" class="divide-y divide-base-300">
+      <!-- 無結果顯示 -->
+      <template x-if="results.length === 0 && !isLoading && query.length > 2">
+        <p class="search-results-empty p-4 text-center text-base-content/70">
+          沒有找到符合的結果
+        </p>
+      </template>
+      
+      <!-- 結果列表 -->
+      <template x-for="(result, index) in results" :key="index">
+        <div class="p-4 hover:bg-base-200">
+          <a :href="result.permalink" class="block">
+            <h3 class="text-lg font-semibold mb-1" x-text="result.title"></h3>
+            <p class="text-sm text-base-content/70" x-text="result.description || result.summary || ''"></p>
+            
+            <!-- 標籤列表 -->
+            <div class="mt-2 flex flex-wrap gap-1" x-show="result.tags && result.tags.length">
+              <template x-for="tag in result.tags" :key="tag">
+                <span class="bg-primary-100 text-primary-800 text-xs font-medium mr-1 px-2 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+                  <span x-text="tag"></span>
+                </span>
+              </template>
+            </div>
+          </a>
+        </div>
+      </template>
+    </div>
+  </div>
+  
+  <!-- 搜尋結果模板（用於 mark.js 高亮） -->
+  <script id="search-result-template" type="text/x-template">
+    <div class="p-4 hover:bg-base-200">
+      <a href="${link}" class="block">
+        <h3 class="text-lg font-semibold mb-1">${title}</h3>
+        <p class="text-sm text-base-content/70" id="summary-${key}">${snippet}</p>
+        ${isset tags}<div class="mt-2 flex flex-wrap gap-1">${tags}</div>${end}
+      </a>
+    </div>
+  </script>
+</div>

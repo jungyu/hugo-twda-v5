@@ -1,0 +1,75 @@
+{{- define "main" -}}
+<div class="container mx-auto max-w-4xl text-center">
+    <!-- 404 圖示 -->
+    <div class="mb-8">
+        <div class="text-9xl font-bold text-primary opacity-50">404</div>
+    </div>
+    
+    <!-- 錯誤訊息 -->
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold mb-4 text-error">頁面找不到</h1>
+        <p class="text-lg text-base-content/80 mb-6">
+            抱歉，您要找的頁面不存在或已被移除。
+        </p>
+        <p class="text-base-content/70">
+            請檢查網址是否正確，或使用下方的導航回到首頁。
+        </p>
+    </div>
+    
+    <!-- 插圖 -->
+    <div class="mb-8">
+        <svg class="w-64 h-64 mx-auto text-base-content/30" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+        </svg>
+    </div>
+    
+    <!-- 導航選項 -->
+    <div class="space-y-4">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ "/" | relURL }}" class="btn btn-primary btn-lg">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                回到首頁
+            </a>
+            
+            <a href="/blogs/" class="btn btn-outline btn-lg">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                </svg>
+                瀏覽文章
+            </a>
+        </div>
+        
+        <button onclick="history.back()" class="btn btn-ghost">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            返回上一頁
+        </button>
+    </div>
+    
+    <!-- 搜尋建議 -->
+    <div class="mt-12 p-6 bg-base-200 rounded-lg">
+        <h3 class="text-xl font-semibold mb-4">您可能在找</h3>
+        <div class="grid sm:grid-cols-2 gap-4 text-left">
+            <div>
+                <h4 class="font-medium mb-2">熱門頁面</h4>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="/about/" class="link link-hover">關於我們</a></li>
+                    <li><a href="/blogs/" class="link link-hover">文章列表</a></li>
+                    <li><a href="/contact/" class="link link-hover">聯絡我們</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-medium mb-2">最新文章</h4>
+                <ul class="space-y-1 text-sm">
+                    {{- range (first 3 (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse) -}}
+                    <li><a href="{{ .RelPermalink }}" class="link link-hover">{{ .Title }}</a></li>
+                    {{- end -}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{{- end -}}

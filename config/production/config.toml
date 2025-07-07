@@ -1,0 +1,19 @@
+# 生產環境特定配置
+baseURL = "https://your-production-domain.com/"
+enableRobotsTXT = true
+
+[build]
+  writeStats = true
+  
+[minify]
+  disableJS = false
+  disableCSS = false
+  disableHTML = false
+  disableSVG = false
+  disableXML = false
+  minifyOutput = true
+  
+[params]
+  # 生產環境參數覆蓋
+  env = "production"
+  googleAnalytics = "UA-XXXXXXXXX-X" # 替換為您的 GA ID

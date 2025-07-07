@@ -1,0 +1,35 @@
+/* WCAG 2.1 AA 可訪問性增強 */
+
+/* 螢幕閱讀器輔助類 */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+}
+
+.sr-only-focusable:focus {
+  @apply not-sr-only static w-auto h-auto overflow-visible whitespace-normal;
+  @apply p-2 m-2;
+  clip: auto;
+  clip-path: none;
+}
+
+/* 鍵盤導航增強 */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary;
+}
+
+/* 跳過導航鏈接 */
+.skip-to-content {
+  @apply sr-only focus:not-sr-only;
+  @apply fixed top-0 left-0 z-[9999] m-3;
+  @apply bg-primary text-primary-content px-4 py-3;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-focus;
+}
+
+/* 高對比模式支援 */
+@media (forced-colors: active) {
+  .btn, .card, .badge {
+    forced-color-adjust: none;
+  }
+}

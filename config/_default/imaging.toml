@@ -1,0 +1,12 @@
+# Hugo 圖片處理配置
+resampleFilter = "lanczos"
+quality = 90
+anchor = "smart"
+bgColor = "#ffffff"
+
+# 預設圖片處理設定
+[exif]
+  disableDate = true
+  disableLatLong = true
+  includeFields = ""
+  excludeFields = ""

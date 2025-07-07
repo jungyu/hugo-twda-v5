@@ -1,0 +1,25 @@
+<div x-data="fontSize" class="font-size-control">
+  <div class="inline-flex items-center justify-center rounded-md gap-1" role="group" aria-label="字體大小調整">
+    <button 
+      @click="setSmall" 
+      class="btn btn-sm btn-ghost"
+      :class="{'btn-active': size === 'text-custom-sm'}"
+      id="btnTextSmall">
+      <span class="text-sm">A</span>
+    </button>
+    <button 
+      @click="setMedium" 
+      class="btn btn-sm btn-ghost"
+      :class="{'btn-active': size === 'text-base'}"
+      id="btnTextBase">
+      <span class="text-base">A</span>
+    </button>
+    <button 
+      @click="setLarge" 
+      class="btn btn-sm btn-ghost"
+      :class="{'btn-active': size === 'text-custom-lg'}"
+      id="btnTextLarge">
+      <span class="text-lg">A</span>
+    </button>
+  </div>
+</div>

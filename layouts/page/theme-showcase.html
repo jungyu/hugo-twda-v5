@@ -1,0 +1,193 @@
+{{ define "main" }}
+<div class="container mx-auto py-10 px-4">
+  <div class="prose prose-lg max-w-none mb-10">
+    <h1 class="text-3xl font-bold">{{ .Title }}</h1>
+    <p>{{ .Description }}</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Swap 主題切換器 -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">Swap 主題切換器</h2>
+        <p>使用 DaisyUI swap 元件實現的簡易明/暗主題切換。</p>
+        <div class="flex justify-center py-4">
+          {{ partial "theme-switcher-swap.html" . }}
+        </div>
+        <div class="card-actions justify-end">
+          <div class="badge badge-outline">簡單</div>
+          <div class="badge badge-primary">DaisyUI v5</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 下拉式主題選單 -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">主題下拉選單</h2>
+        <p>使用 DaisyUI dropdown 元件實現的多主題切換下拉選單。</p>
+        <div class="flex justify-center py-4">
+          {{ partial "theme-switcher-dropdown.html" . }}
+        </div>
+        <div class="card-actions justify-end">
+          <div class="badge badge-outline">進階</div>
+          <div class="badge badge-primary">多主題</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 單選按鈕組 -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">單選按鈕組</h2>
+        <p>使用 radio 按鈕實現的主題切換器，適合內嵌在設定頁面。</p>
+        <div class="flex justify-center py-4">
+          {{ partial "theme-switcher-radio.html" . }}
+        </div>
+        <div class="card-actions justify-end">
+          <div class="badge badge-outline">精簡</div>
+          <div class="badge badge-primary">主題控制</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alpine.js 整合切換器 -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">Alpine.js 整合</h2>
+        <p>整合 Alpine.js 的深色模式元件與 DaisyUI 的主題控制器。</p>
+        <div class="flex justify-center py-4">
+          {{ partial "theme-switcher-alpine.html" . }}
+        </div>
+        <div class="card-actions justify-end">
+          <div class="badge badge-outline">高級</div>
+          <div class="badge badge-secondary">Alpine.js</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 進階主題管理器 -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">進階主題管理器</h2>
+        <p>使用 Alpine.js themeManager 元件實現主題和字體大小管理。</p>
+        <div x-data="themeManager" class="flex flex-col gap-4">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">主題選擇</span>
+            </label>
+            <select x-model="currentTheme" @change="applyTheme(currentTheme)" class="select select-bordered w-full">
+              <option value="light">淺色主題</option>
+              <option value="dark">深色主題</option>
+              <option value="ocean">海洋主題</option>
+              <option value="cherry">櫻桃主題</option>
+              <option value="forest">森林主題</option>
+            </select>
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">字體大小</span>
+            </label>
+            <div class="flex justify-between items-center">
+              <template x-for="size in fontSizeOptions" :key="size">
+                <button 
+                  @click="applyFontSize(size)" 
+                  class="btn" 
+                  :class="fontSize === size ? 'btn-primary' : 'btn-outline'"
+                >
+                  <span x-text="size.toUpperCase()"></span>
+                </button>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主題色彩展示 -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">主題色彩展示</h2>
+        <p>當前主題的色彩系統展示。</p>
+        <div class="flex flex-wrap gap-2">
+          <div class="w-12 h-12 rounded bg-primary"></div>
+          <div class="w-12 h-12 rounded bg-secondary"></div>
+          <div class="w-12 h-12 rounded bg-accent"></div>
+          <div class="w-12 h-12 rounded bg-neutral"></div>
+          <div class="w-12 h-12 rounded bg-base-100 border"></div>
+          <div class="w-12 h-12 rounded bg-base-200"></div>
+          <div class="w-12 h-12 rounded bg-base-300"></div>
+          <div class="w-12 h-12 rounded bg-info"></div>
+          <div class="w-12 h-12 rounded bg-success"></div>
+          <div class="w-12 h-12 rounded bg-warning"></div>
+          <div class="w-12 h-12 rounded bg-error"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 按鈕展示 -->
+  <div class="mt-12">
+    <h2 class="text-2xl font-bold mb-6">按鈕樣式展示</h2>
+    <div class="flex flex-wrap gap-2">
+      <button class="btn">默認按鈕</button>
+      <button class="btn btn-primary">主要按鈕</button>
+      <button class="btn btn-secondary">次要按鈕</button>
+      <button class="btn btn-accent">強調按鈕</button>
+      <button class="btn btn-info">資訊按鈕</button>
+      <button class="btn btn-success">成功按鈕</button>
+      <button class="btn btn-warning">警告按鈕</button>
+      <button class="btn btn-error">錯誤按鈕</button>
+      <button class="btn btn-outline">輪廓按鈕</button>
+      <button class="btn btn-ghost">幽靈按鈕</button>
+      <button class="btn btn-link">連結按鈕</button>
+    </div>
+  </div>
+
+  <!-- 進階按鈕效果 -->
+  <div class="mt-8">
+    <h2 class="text-2xl font-bold mb-6">進階按鈕效果</h2>
+    <div class="flex flex-wrap gap-2">
+      <button class="btn btn-gradient">漸變按鈕</button>
+      <button class="btn btn-primary btn-pulse">脈衝按鈕</button>
+      <button class="btn btn-secondary btn-float">浮動按鈕</button>
+      <button class="btn btn-accent btn-glow">發光按鈕</button>
+    </div>
+  </div>
+
+  <!-- 卡片展示 -->
+  <div class="mt-12">
+    <h2 class="text-2xl font-bold mb-6">進階卡片展示</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 視差卡片 -->
+      <div class="card card-parallax shadow-xl">
+        <figure class="card-image">
+          <img src="https://placehold.co/600x400/EEE/31343C" alt="卡片範例圖片">
+        </figure>
+        <div class="card-body">
+          <h3 class="card-title">視差效果卡片</h3>
+          <p>將游標懸停在此卡片上，觀察圖片的視差效果。</p>
+        </div>
+      </div>
+      
+      <!-- 3D 翻轉卡片 -->
+      <div class="card-flip">
+        <div class="card-flip-inner">
+          <div class="card-flip-front shadow-xl">
+            <div class="card-body">
+              <h3 class="card-title">正面內容</h3>
+              <p>將游標懸停在此卡片上，觀察翻轉效果。</p>
+            </div>
+          </div>
+          <div class="card-flip-back shadow-xl">
+            <div class="card-body">
+              <h3 class="card-title">背面內容</h3>
+              <p>這是卡片的背面，展示了 3D 翻轉效果。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
